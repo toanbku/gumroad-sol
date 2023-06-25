@@ -1,7 +1,10 @@
+![](public/gumstreet.png)
+
 # Gumstreet - a Gumroad.com alternative on Solana
 
-## Technical Stack
+## Technologies Used
 
 - Next.js
 - Pnpm
 - shacdn/ui
+- CandyPay Checkout SDK
