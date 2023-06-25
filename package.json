@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@candypay/checkout-sdk": "^0.1.56",
     "@hookform/resolvers": "^3.1.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.4",
