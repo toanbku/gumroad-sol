@@ -2,7 +2,7 @@ import supabase from "@/services/supabase";
 import { NextApiHandler } from "next";
 import nacl from "tweetnacl";
 import bs58 from "bs58";
-import jwt from "jsonwebtoken";
+import { generateAccessToken } from "@/lib/utils";
 
 const handler: NextApiHandler = async (req, res) => {
   const { signature, address } = req.body;
@@ -48,13 +48,7 @@ const handler: NextApiHandler = async (req, res) => {
     })
     .eq("address", address); // primary key
 
-  const token = jwt.sign(
-    {
-      address: address,
-    },
-    process.env.NEXT_PUBLIC_JWT_SECRET || "jwt5ecr3t",
-    { expiresIn: "7d" }
-  );
+  const token = generateAccessToken(address);
 
   res.status(200).send({ token });
 };
