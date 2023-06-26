@@ -15,16 +15,21 @@ const handler: NextApiHandler = async (req, res) => {
     const { address } = decodedToken;
     const { title, description, price, file } = req.body;
 
-    const response = await supabase.from("Assets").insert({
-      id: uuidv4(),
-      title,
-      description,
-      price,
-      file,
-      owner: address,
-    });
+    try {
+      const response = await supabase.from("Assets").insert({
+        id: uuidv4(),
+        title,
+        description,
+        price,
+        file,
+        owner: address,
+      });
 
-    return res.status(200).send(response);
+      return res.status(200).send(response);
+    } catch (err: any) {
+      console.error(err);
+      return res.status(500).send({ error: "failed to fetch" });
+    }
   }
 };
 

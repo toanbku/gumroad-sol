@@ -50,7 +50,9 @@ const handler: NextApiHandler = async (req, res) => {
 
   const token = generateAccessToken(address);
 
-  res.status(200).send({ token });
+  res.status(200).send({
+    token,
+  });
 };
 
 export default handler;

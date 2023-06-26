@@ -4,7 +4,7 @@ import { NextApiHandler } from "next";
 const handler: NextApiHandler = async (req, res) => {
   const { address } = req.query;
   if (!address) {
-    return;
+    return res.status(405).json({ error: "address is not null" });
   }
 
   const nonce = Math.floor(Math.random() * 1000000);
