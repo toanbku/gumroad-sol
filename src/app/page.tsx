@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import React, { useRef, useState } from "react";
+import React, { RefObject, useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import Sidebar from "@/components/sidebar";
@@ -20,13 +20,16 @@ import Sidebar from "@/components/sidebar";
 export default function Home() {
   const form = useForm();
   const [name, setName] = useState("Life of Pi");
-  const textAreaRef = useRef(null);
-
-  const copyURL = (e) => {
-    textAreaRef.current.select();
-    document.execCommand("copy");
-    e.target.focus();
-    console.log("copy!");
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const copyURL = (e: any) => {
+    if (textAreaRef.current) {
+      textAreaRef.current.select();
+      document.execCommand("copy");
+      e.target.focus();
+      console.log("copied");
+    } else {
+      console.log("can not copy");
+    }
   };
 
   return (
