@@ -1,6 +1,8 @@
 import { candypay } from "@/helpers";
+import { withPrivateRoute } from "@/lib/utils";
 import supabase from "@/services/supabase";
 import { NextApiHandler } from "next";
+import { v4 as uuidv4 } from "uuid";
 
 type Item = {
   id: string;
@@ -13,9 +15,12 @@ type Order = {
 
 const handler: NextApiHandler = async (req, res) => {
   try {
+    const decodedToken = await withPrivateRoute(req, res);
+    // @ts-ignore
+    const { address } = decodedToken;
     const { data } = req.body as Order;
     const ids = data.map((item: any) => item.id);
-    const found = await supabase.from("Assets").select().eq("id", ids);
+    const found = await supabase.from("Assets").select().in("id", ids);
     if (!found.data?.length) {
       throw new Error("Can not find this asset");
     }
@@ -36,6 +41,26 @@ const handler: NextApiHandler = async (req, res) => {
       items,
       shipping_fees: 0.04,
     });
+
+    // add this session to database
+    await supabase.from("PaymentSessions").insert({
+      id: uuidv4(),
+      sessionId: response.session_id,
+      orderId: response.order_id,
+      status: "Pending",
+      owner: address,
+      updatedAt: new Date(),
+    });
+
+    await supabase.from("Transaction").insert(
+      found.data.map((item) => ({
+        id: uuidv4(),
+        assetId: item.id,
+        quantity: data.find((d) => d.id === item.id)?.quantity || 1,
+        orderId: response.order_id,
+        updatedAt: new Date(),
+      }))
+    );
 
     return res.status(200).json(response);
   } catch (error) {
