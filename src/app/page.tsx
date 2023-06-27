@@ -22,7 +22,7 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import CommandBar from "@/components/command";
+import CommandBar from "@/app/command/page";
 
 export default function Home() {
   const form = useForm();
@@ -62,9 +62,6 @@ export default function Home() {
                   <a href="/">Share</a>
                 </MenubarItem>
               </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-              <MenubarTrigger>Bla bla</MenubarTrigger>
             </MenubarMenu>
           </Menubar>
         </header>

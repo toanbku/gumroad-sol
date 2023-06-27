@@ -1,5 +1,7 @@
 "use client";
 
+import TableData from "./datatable/page";
+
 const data = {
   img: "",
   name: "",
@@ -27,6 +29,7 @@ export default function History() {
       <div>
         <h1 className="text-3xl m-10">Product has not been purchased</h1>
       </div>
+      <TableData />
       <div>
         <h1 className="text-3xl m-10">Products sold</h1>
       </div>

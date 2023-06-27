@@ -48,7 +48,6 @@ export const columns: ColumnDef<Payment>[] = [
     header: () => <div className="text-right">Revenue</div>,
     cell: ({ row }) => {
       const revenue = parseFloat(row.getValue("revenue"));
-      console.log(revenue);
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -62,7 +61,6 @@ export const columns: ColumnDef<Payment>[] = [
     header: () => <div className="text-right">Prices</div>,
     cell: ({ row }) => {
       const prices = parseFloat(row.getValue("prices"));
-      console.log(prices);
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
