@@ -51,7 +51,7 @@ export default function Home() {
               <MenubarTrigger>File</MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
-                  <Link href="/card">Product</Link>
+                  <Link href="/product">Product</Link>
                 </MenubarItem>
                 <MenubarSeparator />
                 <MenubarItem>
