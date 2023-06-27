@@ -1,13 +1,4 @@
-"use client"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import "./style.css";
+"use client";
 
 const data = {
   img: "",
