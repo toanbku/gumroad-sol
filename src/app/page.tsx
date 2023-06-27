@@ -68,7 +68,7 @@ export default function Home() {
             </MenubarMenu>
           </Menubar>
         </header>
-        <ScrollArea className="w-4/6 h-3/4 float-left bg-local hover:bg-fixed flex ">
+        <ScrollArea className="w-full h-full lg:w-4/6 lg:h-3/4 float-left bg-local hover:bg-fixed flex ">
           <Form {...form}>
             <FormField
               control={form.control}
@@ -145,8 +145,9 @@ export default function Home() {
             />
           </Form>
         </ScrollArea>
-        <ScrollArea className="w-2/6 h-3/4 float-right">
+        <ScrollArea className="w-full h-full lg:w-2/6 lg:h-3/4 float-right">
           <h1 className="text-2xl m-10 ">Preview</h1>
+          <div className="h-32 bg-lime-200 m-10"></div>
         </ScrollArea>
       </div>
     </main>

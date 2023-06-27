@@ -28,9 +28,9 @@ export default function Product() {
   const form = useForm();
   return (
     <main className="flex items-center justify-center h-screen w-screen">
-      <Card className="h-5/6 w-5/6 flex flex-wrap border-2 border-black">
-        <div className="h-1/2 w-full bg-zinc-600 rounded-t-md"></div>
-        <div className="w-2/3 h-1/2 lg:border-r border-black rounded-es-md float-left bg-lime-200">
+      <Card className="lg:h-5/6 lg:w-5/6 h-full w-full flex flex-wrap max-sm:flex-col border-2 border-black">
+        <div className="h-1/2 w-full max-sm:h-1/3 bg-zinc-600 rounded-t-md"></div>
+        <div className="w-2/3 h-1/2 max-sm:w-full max-sm:h-1/3 sm:border-r border-black rounded-es-md float-left">
           <CardHeader>
             <CardTitle>Name Product</CardTitle>
             <CardDescription>Description ...</CardDescription>
@@ -66,7 +66,7 @@ export default function Product() {
             <AiOutlineStar />
           </CardFooter>
         </div>
-        <div className="w-1/3 h-1/2 float-right flex flex-col rounded-ee-md justify-center items-center gap-4 p-2 bg-red-200">
+        <div className="w-1/3 h-1/2 max-sm:w-full max-sm:h-1/3 float-right flex flex-col rounded-ee-md sm:justify-center items-center gap-4 p-2">
           <Button className="m5 w-2/3 hover:bg-slate-500 border-black border ">
             Buy it{" "}
           </Button>
@@ -74,7 +74,7 @@ export default function Product() {
             <AiOutlineDollar className="h-auto w-[30px] mx-2" />
             <Input
               type="text"
-              className="border boder-black"
+              className="border border-black"
               placeholder="You can pay more if you want "
             />
           </p>
