@@ -90,7 +90,7 @@ dependencies:
     version: 1.0.6(@types/react-dom@18.2.6)(@types/react@18.2.14)(react-dom@18.2.0)(react@18.2.0)
   '@solana/wallet-adapter-react':
     specifier: ^0.15.32
-    version: 0.15.32(@solana/web3.js@1.77.3)(bs58@5.0.0)(react-native@0.72.0)(react@18.2.0)
+    version: 0.15.32(@solana/web3.js@1.77.3)(bs58@4.0.1)(react-native@0.72.0)(react@18.2.0)
   '@supabase/supabase-js':
     specifier: ^2.26.0
     version: 2.26.0
@@ -107,8 +107,8 @@ dependencies:
     specifier: 10.4.14
     version: 10.4.14(postcss@8.4.24)
   bs58:
-    specifier: ^5.0.0
-    version: 5.0.0
+    specifier: ^4.0.1
+    version: 4.0.1
   class-variance-authority:
     specifier: ^0.6.0
     version: 0.6.0(typescript@5.1.3)
@@ -3744,7 +3744,7 @@ packages:
       eventemitter3: 4.0.7
     dev: false
 
-  /@solana/wallet-adapter-react@0.15.32(@solana/web3.js@1.77.3)(bs58@5.0.0)(react-native@0.72.0)(react@18.2.0):
+  /@solana/wallet-adapter-react@0.15.32(@solana/web3.js@1.77.3)(bs58@4.0.1)(react-native@0.72.0)(react@18.2.0):
     resolution: {integrity: sha512-dnbMVQeO2WBvK13M4kiUo1TBONJpfpO1r9JA5FuXG/Zwdt4RbGT+h6HSOaplHPO6pzDVk2nT/bU8wjqI9GxTYQ==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -3753,7 +3753,7 @@ packages:
     dependencies:
       '@solana-mobile/wallet-adapter-mobile': 2.0.0(@solana/web3.js@1.77.3)(react-native@0.72.0)
       '@solana/wallet-adapter-base': 0.9.22(@solana/web3.js@1.77.3)
-      '@solana/wallet-standard-wallet-adapter-react': 1.0.2(@solana/wallet-adapter-base@0.9.22)(@solana/web3.js@1.77.3)(bs58@5.0.0)(react@18.2.0)
+      '@solana/wallet-standard-wallet-adapter-react': 1.0.2(@solana/wallet-adapter-base@0.9.22)(@solana/web3.js@1.77.3)(bs58@4.0.1)(react@18.2.0)
       '@solana/web3.js': 1.77.3
       react: 18.2.0
     transitivePeerDependencies:
@@ -3784,7 +3784,7 @@ packages:
       '@solana/wallet-standard-features': 1.0.1
     dev: false
 
-  /@solana/wallet-standard-wallet-adapter-base@1.0.2(@solana/web3.js@1.77.3)(bs58@5.0.0):
+  /@solana/wallet-standard-wallet-adapter-base@1.0.2(@solana/web3.js@1.77.3)(bs58@4.0.1):
     resolution: {integrity: sha512-QqkupdWvWuihX87W6ijt174u6ZdP5OSFlNhZhuhoMlIdyI/sj7MhGsdppuRlMh65oVO2WNWTL9y2bO5Pbx+dfg==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -3800,10 +3800,10 @@ packages:
       '@wallet-standard/base': 1.0.1
       '@wallet-standard/features': 1.0.3
       '@wallet-standard/wallet': 1.0.1
-      bs58: 5.0.0
+      bs58: 4.0.1
     dev: false
 
-  /@solana/wallet-standard-wallet-adapter-react@1.0.2(@solana/wallet-adapter-base@0.9.22)(@solana/web3.js@1.77.3)(bs58@5.0.0)(react@18.2.0):
+  /@solana/wallet-standard-wallet-adapter-react@1.0.2(@solana/wallet-adapter-base@0.9.22)(@solana/web3.js@1.77.3)(bs58@4.0.1)(react@18.2.0):
     resolution: {integrity: sha512-0YTPUnjiSG5ajDP2hK8EipxkeHhO3+nCtXeF1eS/ZP2QcFAgS/4luywrn/6CdfzQ2cQYPCFdnG/QculpUp6bBg==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -3811,7 +3811,7 @@ packages:
       react: '*'
     dependencies:
       '@solana/wallet-adapter-base': 0.9.22(@solana/web3.js@1.77.3)
-      '@solana/wallet-standard-wallet-adapter-base': 1.0.2(@solana/web3.js@1.77.3)(bs58@5.0.0)
+      '@solana/wallet-standard-wallet-adapter-base': 1.0.2(@solana/web3.js@1.77.3)(bs58@4.0.1)
       '@wallet-standard/app': 1.0.1
       '@wallet-standard/base': 1.0.1
       react: 18.2.0
@@ -3857,8 +3857,8 @@ packages:
       - encoding
     dev: false
 
-  /@supabase/gotrue-js@2.31.0:
-    resolution: {integrity: sha512-YcwlbbNfedlue/HVIXtYBb4fuOrs29gNOTl6AmyxPp4zryRxzFvslVN9kmLDBRUAVU9fnPJh2bgOR3chRjJX5w==}
+  /@supabase/gotrue-js@2.34.0:
+    resolution: {integrity: sha512-j4up+jZDyutUwKcrwDXhVbeHFydUu9wLvotr4qREenz+ec0d3L7Zs0Nb1hP8B64HbJ4tmFXhpOG23IsvQtC58w==}
     dependencies:
       cross-fetch: 3.1.6
     transitivePeerDependencies:
@@ -3895,7 +3895,7 @@ packages:
     resolution: {integrity: sha512-RXmTPTobaYAwkSobadHZmEVLmzX3SGrtRZIGfLWnLv92VzBRrjuXn0a+bJqKl50GUzsyqPA+j5pod7EwMkcH5A==}
     dependencies:
       '@supabase/functions-js': 2.1.2
-      '@supabase/gotrue-js': 2.31.0
+      '@supabase/gotrue-js': 2.34.0
       '@supabase/postgrest-js': 1.7.1
       '@supabase/realtime-js': 2.7.3
       '@supabase/storage-js': 2.5.1

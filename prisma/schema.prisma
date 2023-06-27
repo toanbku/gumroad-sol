@@ -20,11 +20,12 @@ model Users {
 }
 
 model Assets {
-  id          String @id
+  id          String  @id
   title       String
   description String
   price       Float
   file        String
+  image       String?
   owner       String
-  Users       Users  @relation(fields: [owner], references: [address])
+  Users       Users   @relation(fields: [owner], references: [address])
 }

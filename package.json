@@ -46,7 +46,7 @@
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "autoprefixer": "10.4.14",
-    "bs58": "^5.0.0",
+    "bs58": "^4.0.1",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
