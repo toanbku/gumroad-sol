@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { AiOutlineDollar, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import "./style.css";
 import {
@@ -38,8 +37,16 @@ export default function Product() {
                         <AiOutlineDollar className="h-auto w-[30px] mx-3" />
                         1000
                       </div>
-                      <div className="URL h-auto">nguyenxuananhuong.com/nametheproduct</div>
-                      <div className="flex flex-row items-center ml-3 pl-3 border-l-2 border-black">Rating <AiFillStar /><AiFillStar /><AiFillStar /><AiFillStar /><AiOutlineStar /></div>
+                      <div className="URL h-auto">
+                        nguyenxuananhuong.com/nametheproduct
+                      </div>
+                      <div className="flex flex-row items-center ml-3 pl-3 border-l-2 border-black">
+                        Rating <AiFillStar />
+                        <AiFillStar />
+                        <AiFillStar />
+                        <AiFillStar />
+                        <AiOutlineStar />
+                      </div>
                     </div>
                   </FormControl>
                   <FormDescription className="m-5 text-slate-700">

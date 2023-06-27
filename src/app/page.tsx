@@ -4,18 +4,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import React, { RefObject, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
-import Sidebar from "@/components/sidebar";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+import CommandBar from "@/components/command";
 
 export default function Home() {
   const form = useForm();
@@ -34,32 +41,33 @@ export default function Home() {
 
   return (
     <main className="flex w-full h-screen">
-      <Sidebar />
+      <CommandBar />
       <div className="w-full h-full">
-        <div className="h-1/4">
-          <h1 className="text-4xl p-10 text-white ">{name}</h1>
-          <div className="ml-5">
-            <Link
-              href="/product"
-              className="gap-2 p-3 m-5 rounded-full bg-black border-white border-[1px] text-white"
-            >
-              Product
-            </Link>
-            <a
-              href="/history"
-              className="gap-2 p-3 m-5 rounded-full bg-black border-white border-[1px] text-white"
-            >
-              History
-            </a>
-            <a
-              href="/"
-              className="gap-2 p-3 m-5 rounded-full bg-black border-white border-[1px] text-white"
-            >
-              Share
-            </a>
-          </div>
-          <hr className="mb-10 mt-10 " />
-        </div>
+        <header className="h-1/4 border-b-2 border-black">
+          <h1 className="text-4xl p-10">{name}</h1>
+          <div className="ml-5"></div>
+          <Menubar className="mx-10 w-1/3 border-b-2 border-black">
+            <MenubarMenu>
+              <MenubarTrigger>File</MenubarTrigger>
+              <MenubarContent>
+                <MenubarItem>
+                  <Link href="/card">Product</Link>
+                </MenubarItem>
+                <MenubarSeparator />
+                <MenubarItem>
+                  <a href="/history">History</a>
+                </MenubarItem>
+                <MenubarSeparator />
+                <MenubarItem>
+                  <a href="/">Share</a>
+                </MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+            <MenubarMenu>
+              <MenubarTrigger>Bla bla</MenubarTrigger>
+            </MenubarMenu>
+          </Menubar>
+        </header>
         <ScrollArea className="w-4/6 h-3/4 float-left bg-local hover:bg-fixed flex ">
           <Form {...form}>
             <FormField
@@ -67,13 +75,13 @@ export default function Home() {
               name="Username"
               render={(field) => (
                 <FormItem className="m-10">
-                  <FormLabel className="text-2xl pb-2 text-white">
+                  <FormLabel className="text-2xl pb-2">
                     Name the product
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Name the product"
-                      className=""
+                      className="border-2 border-black"
                       onChange={(e) => setName(e.target.value)}
                       {...field}
                     />
@@ -86,13 +94,11 @@ export default function Home() {
               name="Description"
               render={(field) => (
                 <FormItem className="m-10">
-                  <FormLabel className="text-2xl pb-2 text-white">
-                    Description
-                  </FormLabel>
+                  <FormLabel className="text-2xl pb-2 ">Description</FormLabel>
                   <FormControl>
                     {/* button bar */}
                     <Textarea
-                      className="text-white hover:border-red-400 w-ful h-[200px]"
+                      className="border-2 hover:border-black w-ful h-[200px]"
                       placeholder="Describe your product..."
                     />
                   </FormControl>
@@ -104,10 +110,10 @@ export default function Home() {
               name="URL"
               render={(field) => (
                 <FormItem className="m-10">
-                  <FormLabel className="text-2xl pb-2 text-white">
+                  <FormLabel className="text-2xl pb-2">
                     <h1 className="float-left">URL</h1>
                     <button
-                      className="float-right underline text-xl"
+                      className="float-right underline text-lg"
                       onClick={(e) => copyURL(e)}
                     >
                       Copy URL
@@ -118,10 +124,10 @@ export default function Home() {
                     <div>
                       <Textarea
                         ref={textAreaRef}
-                        className="text-white hover:border-red-400 w-ful"
+                        className="border-2 hover:border-black w-ful"
                         placeholder="Change your URL..."
                       />
-                      <hr className="w-full text-white mt-10" />
+                      <hr className="w-full mt-10" />
                     </div>
                   </FormControl>
                 </FormItem>
@@ -132,9 +138,7 @@ export default function Home() {
               name="Cover"
               render={(field) => (
                 <FormItem className="m-10">
-                  <FormLabel className="text-2xl pb-2 text-white">
-                    Cover
-                  </FormLabel>
+                  <FormLabel className="text-2xl pb-2">Cover</FormLabel>
                   <FormControl></FormControl>
                 </FormItem>
               )}
@@ -142,7 +146,7 @@ export default function Home() {
           </Form>
         </ScrollArea>
         <ScrollArea className="w-2/6 h-3/4 float-right">
-          <h1 className="text-2xl text-white m-10 ">Preview</h1>
+          <h1 className="text-2xl m-10 ">Preview</h1>
         </ScrollArea>
       </div>
     </main>
