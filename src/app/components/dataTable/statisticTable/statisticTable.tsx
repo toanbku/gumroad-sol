@@ -1,8 +1,6 @@
-"use client"
-
 import { Input } from "@/components/ui/input";
-import { Payment, columns } from "./columns";
 import { DataTable } from "./data-table";
+import { Payment, columns } from "./columns";
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -24,7 +22,7 @@ async function getData(): Promise<Payment[]> {
     {
       id: "88fas56s",
       status: "Sold",
-      revenue: 47,
+      revenue: 60,
       prices: 60,
       email: "leduy@example.com",
     },
@@ -32,7 +30,7 @@ async function getData(): Promise<Payment[]> {
   ];
 }
 
-export default async function TableData() {
+export default async function StatisticsTable() {
   const data = await getData();
 
   return (

@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { AiFillStar, AiOutlineDollar, AiOutlineStar } from "react-icons/ai";
 import { Input } from "@/components/ui/input";
-import SideBar from "../sidebar/page";
+import SideBar from "../components/sidebar/page";
 
 export default function Product() {
   const form = useForm();

@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
-import SideBar from "./sidebar/page";
+import SideBar from "./components/sidebar/page";
 import { AiOutlineDollar } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -100,7 +100,7 @@ export default function Home() {
                       <Input
                         id="uploadfile"
                         type="file"
-                        className="mx-10 w-1/4 hover:border-black border"
+                        className="w-1/4 hover:border-black border"
                         {...field}
                       />
                     </FormControl>
@@ -119,7 +119,7 @@ export default function Home() {
                       <Input
                         id="uploadthumnail"
                         type="file"
-                        className="mx-10 w-1/4 hover:border-black border"
+                        className="w-1/4 hover:border-black border"
                         {...field}
                       />
                     </FormControl>
@@ -133,7 +133,7 @@ export default function Home() {
                   <FormItem className="m-10">
                     <FormLabel className="text-2xl pb-2 ">Price</FormLabel>
                     <FormControl>
-                      <Label htmlFor="price" className="flex mx-10">
+                      <Label htmlFor="price" className="flex">
                         <AiOutlineDollar className="h-auto w-[30px] mx-2" />
                         <Input
                           id="price"

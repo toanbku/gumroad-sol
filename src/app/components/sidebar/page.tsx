@@ -10,6 +10,8 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import { Wallet } from "@/components/wallet";
+import Link from "next/link";
 
 export default function SideBar() {
   return (
@@ -17,24 +19,22 @@ export default function SideBar() {
       <h1 className=" h-32 text-[30px] grid content-center text-center">
         Gumroad
       </h1>
-      {/* Gắn nút Wallet ở đây */}
-
+      <div className="w-auto flex flex-col p-2 items-center gap-2">
+        <Wallet />
+      </div>
       <CommandList>
         <CommandGroup>
           <CommandItem>
-            <a href="./markets">Markets</a>
+            <Link href="./markets">Markets</Link>
           </CommandItem>
           <CommandItem>
-            <a href="./statistics">Statistics </a>
+            <Link href="./statistics">Statistics </Link>
           </CommandItem>
           <CommandItem>
-            <a href="./product">Products</a>
+            <Link href="./product">Products</Link>
           </CommandItem>
           <CommandItem>
-            <a href="./history">Purchase history</a>
-          </CommandItem>
-          <CommandItem>
-            <a href="./history">History</a>
+            <Link href="./history">History</Link>
           </CommandItem>
         </CommandGroup>
       </CommandList>
