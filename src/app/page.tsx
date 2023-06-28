@@ -10,76 +10,31 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Textarea } from "@/components/ui/textarea";
-import Link from "next/link";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import CommandBar from "@/app/command/page";
+import SideBar from "./sidebar/page";
+import { Label } from "@/components/ui/label";
+import { AiOutlineDollar } from "react-icons/ai";
 
 export default function Home() {
   const form = useForm();
-  const [name, setName] = useState("Life of Pi");
-  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-  const copyURL = (e: any) => {
-    if (textAreaRef.current) {
-      textAreaRef.current.select();
-      document.execCommand("copy");
-      e.target.focus();
-      console.log("copied");
-    } else {
-      console.log("can not copy");
-    }
-  };
 
   return (
     <main className="flex w-full h-screen">
-      <CommandBar />
+      <SideBar />
       <div className="w-full h-full">
-        <header className="h-1/4 border-b-2 border-black">
-          <h1 className="text-4xl p-10">{name}</h1>
-          <div className="ml-5"></div>
-          <Menubar className="mx-10 w-1/3 border-b-2 border-black">
-            <MenubarMenu>
-              <MenubarTrigger>File</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>
-                  <Link href="/product">Product</Link>
-                </MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>
-                  <a href="/history">History</a>
-                </MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>
-                  <a href="/">Share</a>
-                </MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        </header>
-        <ScrollArea className="w-full h-full lg:w-4/6 lg:h-3/4 float-left bg-local hover:bg-fixed flex ">
+        <ScrollArea className="w-full h-full float-left bg-local hover:bg-fixed flex">
           <Form {...form}>
             <FormField
               control={form.control}
               name="Username"
               render={(field) => (
                 <FormItem className="m-10">
-                  <FormLabel className="text-2xl pb-2">
-                    Name the product
-                  </FormLabel>
+                  <FormLabel className="text-2xl pb-2">Name</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Name the product"
-                      className="border-2 border-black"
-                      onChange={(e) => setName(e.target.value)}
+                      className="border-2 hover:border-black"
                       {...field}
                     />
                   </FormControl>
@@ -102,49 +57,33 @@ export default function Home() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="URL"
-              render={(field) => (
-                <FormItem className="m-10">
-                  <FormLabel className="text-2xl pb-2">
-                    <h1 className="float-left">URL</h1>
-                    <button
-                      className="float-right underline text-lg"
-                      onClick={(e) => copyURL(e)}
-                    >
-                      Copy URL
-                    </button>
-                  </FormLabel>
-                  <FormControl>
-                    {/* button bar */}
-                    <div>
-                      <Textarea
-                        ref={textAreaRef}
-                        className="border-2 hover:border-black w-ful"
-                        placeholder="Change your URL..."
-                      />
-                      <hr className="w-full mt-10" />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="Cover"
-              render={(field) => (
-                <FormItem className="m-10">
-                  <FormLabel className="text-2xl pb-2">Cover</FormLabel>
-                  <FormControl></FormControl>
-                </FormItem>
-              )}
-            />
+            <Label htmlFor="uploadfile" className="m-10 ">
+              <h3 className="text-2xl mx-10 pb-2">Upload File</h3>
+              <Input
+                id="uploadfile"
+                type="file"
+                className="mx-10 w-1/4 hover:border-black border"
+              />
+            </Label>
+            <Label htmlFor="uploadthumnail" className="m-10 ">
+              <h3 className="text-2xl mx-10 pb-2">Upload Thumnail</h3>
+              <Input
+                id="uploadthumnail"
+                type="file"
+                className="mx-10 w-1/4 hover:border-black border"
+              />
+            </Label>
+            <h3 className="text-2xl mx-10 pb-2">Price</h3>
+            <Label htmlFor="prices" className="mx-10 flex mb-10">
+              <AiOutlineDollar className="h-auto w-[30px] mx-2" />
+              <Input
+                id="prices"
+                type="number"
+                className="w-1/4 hover:border-black border"
+                placeholder="set the prices"
+              />
+            </Label>
           </Form>
-        </ScrollArea>
-        <ScrollArea className="w-full h-full lg:w-2/6 lg:h-3/4 float-right">
-          <h1 className="text-2xl m-10 ">Preview</h1>
-          <div className="h-32 bg-lime-200 m-10"></div>
         </ScrollArea>
       </div>
     </main>

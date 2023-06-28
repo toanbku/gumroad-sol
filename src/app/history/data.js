@@ -1,3 +1,0 @@
-const soldData = () => {};
-
-const remainingProducts = () => {};

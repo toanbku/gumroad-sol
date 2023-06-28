@@ -1,3 +1,5 @@
+
+
 import { Payment, columns } from "./columns";
 import { DataTable } from "./data-table";
 
@@ -33,7 +35,7 @@ export default async function TableData() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto">
       <DataTable columns={columns} data={data} />
     </div>
   );
