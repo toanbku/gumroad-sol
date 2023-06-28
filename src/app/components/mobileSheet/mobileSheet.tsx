@@ -29,7 +29,7 @@ import Link from "next/link";
 import { Wallet } from "@/components/wallet";
 export default function MobileSheet() {
   return (
-    <main className="sm:hidden">
+    <div className="sm:hidden">
       <Sheet key={"left"}>
         <SheetTrigger asChild>
           <Button variant="outline">
@@ -63,6 +63,6 @@ export default function MobileSheet() {
           </Command>
         </SheetContent>
       </Sheet>
-    </main>
+    </div>
   );
 }

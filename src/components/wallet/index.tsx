@@ -20,10 +20,8 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 export const Wallet: FC = () => {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
   const network = WalletAdapterNetwork.Devnet;
-
   // You can also provide a custom RPC endpoint.
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
   const wallets = useMemo(
     () => [new UnsafeBurnerWalletAdapter()],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,7 +33,6 @@ export const Wallet: FC = () => {
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <WalletMultiButton />
-          <WalletDisconnectButton />
           {/* Your app's components go here, nested within the context providers. */}
         </WalletModalProvider>
       </WalletProvider>

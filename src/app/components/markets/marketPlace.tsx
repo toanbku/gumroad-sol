@@ -25,7 +25,7 @@ export default function MarketPlace() {
           </CardContent>
           <CardFooter className="flex">
             <div className="w-1/2 float-left"></div>
-            <Button className="w-1/2 float-right">Buy</Button>
+            <Button className="w-1/2 float-right ">Buy</Button>
           </CardFooter>
         </Card>
         <Card className="m-5 rounded-2xl">

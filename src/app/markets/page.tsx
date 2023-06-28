@@ -1,7 +1,7 @@
 "use client"
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import SideBar from "../components/sidebar/page";
+import SideBar from "../components/sideBar/sideBar";
 import MarketPlace from "../components/markets/marketPlace";
 
 export default function Market() {

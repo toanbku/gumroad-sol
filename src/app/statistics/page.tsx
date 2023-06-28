@@ -1,11 +1,13 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import SideBar from "../components/sidebar/page";
+import SideBar from "../components/sideBar";
 import StatisticsTable from "../components/dataTable/statisticTable";
+import MobileSheet from "../components/mobileSheet";
 
 export default function Statistics() {
   return (
     <main className="flex h-screen w-screen">
       <SideBar />
+      {/* <MobileSheet /> */}
       <ScrollArea className="w-5/6 float-right h-full">
         <h1 className="text-3xl m-10">Statistics</h1>
         <h1 className="text-2xl m-10 -mb-10">Overview</h1>

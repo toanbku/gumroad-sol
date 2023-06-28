@@ -15,11 +15,11 @@ import {
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
-import SideBar from "./components/sidebar/page";
+import SideBar from "./components/sideBar/sideBar";
 import { AiOutlineDollar } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import MobileSheet from "./sheet/page";
+import MobileSheet from "./components/mobileSheet";
 
 const FormSchema = z.object({
   username: z.string().min(2, {

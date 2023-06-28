@@ -24,17 +24,17 @@ export default function SideBar() {
       </div>
       <CommandList>
         <CommandGroup>
-          <CommandItem>
-            <Link href="./markets">Markets</Link>
+          <CommandItem className="">
+            <Link href="./markets" className="w-full">Markets</Link>
+          </CommandItem>
+          <CommandItem className="">
+            <Link href="./statistics" className="w-full">Statistics </Link>
+          </CommandItem>
+          <CommandItem className="">
+            <Link href="./product" className="w-full">Products</Link>
           </CommandItem>
           <CommandItem>
-            <Link href="./statistics">Statistics </Link>
-          </CommandItem>
-          <CommandItem>
-            <Link href="./product">Products</Link>
-          </CommandItem>
-          <CommandItem>
-            <Link href="./history">History</Link>
+            <Link href="./history" className="w-full">History</Link>
           </CommandItem>
         </CommandGroup>
       </CommandList>

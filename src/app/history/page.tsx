@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import SideBar from "../components/sidebar/page";
+import SideBar from "../components/sideBar/sideBar";
 import TransactionHistory from "../components/dataTable/transactionHistory";
 import PurchaseHistory from "../components/dataTable/purchaseHistory";
 
