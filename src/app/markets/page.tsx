@@ -2,7 +2,7 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SideBar from "../components/sidebar/page";
-import MarketTable from "../components/dataTable/marketTable";
+import MarketPlace from "../components/markets/marketPlace";
 
 export default function Market() {
   return (
@@ -10,8 +10,9 @@ export default function Market() {
       <SideBar />
       <ScrollArea className="w-5/6 float-right h-full">
         <h1 className="text-3xl m-10">Markets</h1>
-        <MarketTable />
+        <MarketPlace />
       </ScrollArea>
     </main>
   );
 }
+
