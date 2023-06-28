@@ -15,7 +15,7 @@ import Link from "next/link";
 
 export default function SideBar() {
   return (
-    <Command className="rounded-lg border shadow-md w-1/6 h-screen min-w-fit float-left">
+    <Command className="rounded-lg border shadow-md w-1/6 h-screen min-w-fit float-left max-sm:hidden">
       <h1 className=" h-32 text-[30px] grid content-center text-center">
         Gumroad
       </h1>

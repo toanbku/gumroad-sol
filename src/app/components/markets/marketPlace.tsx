@@ -14,7 +14,7 @@ export default function MarketPlace() {
       <div>
         <h1 className="text-3xl m-10">List Product</h1>
       </div>
-      <div className="grid gap-4 grid-cols-4 ">
+      <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2">
         <Card className="m-5 rounded-2xl">
           <CardHeader>
             <CardTitle>Product name</CardTitle>

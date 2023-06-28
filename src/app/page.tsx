@@ -19,6 +19,7 @@ import SideBar from "./components/sidebar/page";
 import { AiOutlineDollar } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import MobileSheet from "./sheet/page";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -48,10 +49,11 @@ export default function Home() {
   }
 
   return (
-    <main className="flex w-full h-screen">
+    <main className=" w-full h-screen grid grid-col-2 sm:flex">
       <SideBar />
+      <MobileSheet />
       <div className="w-full h-full">
-        <ScrollArea className="w-full h-full float-left bg-local hover:bg-fixed flex">
+        <ScrollArea className="w-full h-full float-left bg-local flex">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
@@ -63,7 +65,7 @@ export default function Home() {
                     <FormControl>
                       <Input
                         placeholder="Name the product"
-                        className="border-2 hover:border-black"
+                        className="border-2 border-black"
                         {...field}
                       />
                     </FormControl>
@@ -80,7 +82,7 @@ export default function Home() {
                     </FormLabel>
                     <FormControl>
                       <Textarea
-                        className="border-2 hover:border-black w-ful h-[200px]"
+                        className="border-2 border-black w-ful h-[200px]"
                         placeholder="Describe your product..."
                         {...field}
                       />
@@ -100,7 +102,7 @@ export default function Home() {
                       <Input
                         id="uploadfile"
                         type="file"
-                        className="w-1/4 hover:border-black border"
+                        className="sm:w-[400px] border-black border"
                         {...field}
                       />
                     </FormControl>
@@ -119,7 +121,7 @@ export default function Home() {
                       <Input
                         id="uploadthumnail"
                         type="file"
-                        className="w-1/4 hover:border-black border"
+                        className="sm:w-[400px] border-black border"
                         {...field}
                       />
                     </FormControl>
@@ -138,7 +140,7 @@ export default function Home() {
                         <Input
                           id="price"
                           type="number"
-                          className="w-1/4 hover:border-black border"
+                          className="  sm:w-[400px] border-black border"
                           placeholder="Set the price"
                           {...field}
                         />
@@ -147,9 +149,14 @@ export default function Home() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="m-10 w-1/12">
-                Submit
-              </Button>
+              <div className="flex mb-5 max-lg:justify-center">
+                <Button
+                  type="submit"
+                  className="mx-10 w-[200px] md:items-center "
+                >
+                  Submit
+                </Button>
+              </div>
             </form>
           </Form>
         </ScrollArea>
