@@ -1,5 +1,6 @@
+"use client"
 
-
+import { Input } from "@/components/ui/input";
 import { Payment, columns } from "./columns";
 import { DataTable } from "./data-table";
 

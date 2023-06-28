@@ -4,14 +4,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import SideBar from "../sidebar/page";
 import TableData from "./datatable/page";
 
-const data = {
-  img: "",
-  name: "",
-  prices: 0,
-  sales: 0,
-  Revenue: 0,
-};
-
 export default function History() {
   return (
     <main className="flex h-screen w-screen">
@@ -32,7 +24,6 @@ export default function History() {
         <div>
           <h1 className="text-3xl m-10">Product has not been purchased</h1>
         </div>
-        <TableData />
         <div>
           <h1 className="text-3xl m-10">Products sold</h1>
         </div>
