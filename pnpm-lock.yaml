@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@candypay/checkout-sdk':
     specifier: ^0.1.56
@@ -183,6 +187,9 @@ devDependencies:
   '@types/bs58':
     specifier: ^4.0.1
     version: 4.0.1
+  '@types/cors':
+    specifier: ^2.8.13
+    version: 2.8.13
   '@types/jsonwebtoken':
     specifier: ^9.0.2
     version: 9.0.2
@@ -3928,6 +3935,12 @@ packages:
     dependencies:
       '@types/node': 20.3.1
     dev: false
+
+  /@types/cors@2.8.13:
+    resolution: {integrity: sha512-RG8AStHlUiV5ysZQKq97copd2UmVYw3/pRMLefISZ3S1hK104Cwm7iLQ3fTKx+lsUH2CE8FlLaYeEA2LSeqYUA==}
+    dependencies:
+      '@types/node': 20.3.1
+    dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
