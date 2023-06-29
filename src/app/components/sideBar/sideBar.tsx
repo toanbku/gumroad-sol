@@ -89,7 +89,7 @@ export default function SideBar() {
   }, [addressWallet]);
 
   return (
-    <Command className="border shadow-md w-1/6 h-screen min-w-fit float-left max-sm:hidden">
+    <Command className="border shadow-md w-[280px] h-screen float-left max-sm:hidden">
       <h1 className="text-[30px] grid content-center text-center pt-6 pb-3">
         Gumstreet
       </h1>
