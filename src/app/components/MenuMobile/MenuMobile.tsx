@@ -19,6 +19,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { usePathname } from "next/navigation";
 
 export default function MenuMobile() {
+  const pathName = usePathname();
   const { publicKey, disconnect, signMessage } = useWallet();
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
 
@@ -81,12 +82,14 @@ export default function MenuMobile() {
   }, []);
 
   useEffect(() => {
+    const tokenStorage = localStorage.getItem("token");
     if (addressWallet) {
       localStorage.setItem("solana_address", addressWallet);
+      if (!tokenStorage) {
+        handleGetNonce();
+      }
     }
   }, [addressWallet]);
-
-  const pathName = usePathname();
 
   return (
     <Sheet key={"left"}>
@@ -117,22 +120,23 @@ export default function MenuMobile() {
           </div>
           <CommandList className="mt-5">
             <CommandGroup>
-              <Link href="./">
-                <CommandItem className={pathName == "/" ? "bg-slate-400" : ""}>
+              <Link href="/">
+                <CommandItem className={pathName == "/" ? "bg-slate-200" : ""}>
                   <div className="text-lg cursor-pointer w-full">Upload</div>
                 </CommandItem>
               </Link>
-              <Link href="./markets">
+
+              <Link href="/markets">
                 <CommandItem
-                  className={pathName == "/markets" ? "bg-slate-400" : ""}
+                  className={pathName === "/markets" ? "bg-slate-200" : ""}
                 >
-                  <div className="text-lg cursor-pointer w-full">Markets</div>
+                  <div className="text-lg cursor-pointer w-full ">Markets</div>
                 </CommandItem>
               </Link>
 
-              <Link href="./statistics">
+              <Link href="/statistics">
                 <CommandItem
-                  className={pathName == "/statistics" ? "bg-slate-400" : ""}
+                  className={pathName === "/statistics" ? "bg-slate-200" : ""}
                 >
                   <div className="text-lg cursor-pointer w-full">
                     Statistics
@@ -140,17 +144,17 @@ export default function MenuMobile() {
                 </CommandItem>
               </Link>
 
-              <Link href="./product">
+              <Link href="/product">
                 <CommandItem
-                  className={pathName == "/product" ? "bg-slate-400" : ""}
+                  className={pathName === "/product" ? "bg-slate-200" : ""}
                 >
                   <div className="text-lg cursor-pointer w-full">Products</div>
                 </CommandItem>
               </Link>
 
-              <Link href="./history">
+              <Link href="/history">
                 <CommandItem
-                  className={pathName == "/history" ? "bg-slate-400" : ""}
+                  className={pathName === "/history" ? "bg-slate-200" : ""}
                 >
                   <div className="text-lg cursor-pointer w-full">History</div>
                 </CommandItem>

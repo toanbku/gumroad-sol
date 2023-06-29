@@ -19,9 +19,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function SideBar() {
+  const pathName = usePathname();
   const { publicKey, disconnect, signMessage } = useWallet();
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
 
@@ -84,13 +85,14 @@ export default function SideBar() {
   }, []);
 
   useEffect(() => {
+    const tokenStorage = localStorage.getItem("token");
     if (addressWallet) {
       localStorage.setItem("solana_address", addressWallet);
+      if (!tokenStorage) {
+        handleGetNonce();
+      }
     }
   }, [addressWallet]);
-
-  const pathName = usePathname();
-  console.log(pathName);
 
   return (
     <Command>
@@ -121,30 +123,40 @@ export default function SideBar() {
       </div>
       <CommandList className="mt-5">
         <CommandGroup>
-          <Link href="./" >
-            <CommandItem className={pathName == "/" ? "bg-slate-400" : "" }>
+          <Link href="/">
+            <CommandItem className={pathName == "/" ? "bg-slate-200" : ""}>
               <div className="text-lg cursor-pointer w-full">Upload</div>
             </CommandItem>
-          </Link >
-          <Link href="./markets" >
-            <CommandItem className={pathName == "/markets" ? "bg-slate-400" : "" }>
+          </Link>
+
+          <Link href="/markets">
+            <CommandItem
+              className={pathName === "/markets" ? "bg-slate-200" : ""}
+            >
               <div className="text-lg cursor-pointer w-full ">Markets</div>
             </CommandItem>
           </Link>
-          <Link href="./statistics" >
-            <CommandItem className={pathName == "/statistics" ? "bg-slate-400" : "" }> 
+
+          <Link href="/statistics">
+            <CommandItem
+              className={pathName === "/statistics" ? "bg-slate-200" : ""}
+            >
               <div className="text-lg cursor-pointer w-full">Statistics</div>
             </CommandItem>
           </Link>
 
-          <Link href="./product" >
-            <CommandItem className={pathName == "/product" ? "bg-slate-400" : "" }>
+          <Link href="/product">
+            <CommandItem
+              className={pathName === "/product" ? "bg-slate-200" : ""}
+            >
               <div className="text-lg cursor-pointer w-full">Products</div>
             </CommandItem>
           </Link>
 
-          <Link href="./history" >
-            <CommandItem className={pathName == "/history" ? "bg-slate-400" : "" }>
+          <Link href="/history">
+            <CommandItem
+              className={pathName === "/history" ? "bg-slate-200" : ""}
+            >
               <div className="text-lg cursor-pointer w-full">History</div>
             </CommandItem>
           </Link>
