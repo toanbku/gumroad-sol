@@ -26,7 +26,7 @@ export default function RootLayout({
                 <SideBar />
               </div>
               <div className="flex-1 relative">
-                <div className="lg:hidden block absolute top-2 left-3">
+                <div className="lg:hidden block absolute top-2 left-3 z-10">
                   <MenuMobile />
                 </div>
                 <div className="px-10 pb-10 lg:pt-10 pt-16 h-screen overflow-y-auto">

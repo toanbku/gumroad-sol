@@ -6,13 +6,16 @@ export default function Statistics() {
       <h1 className="text-3xl mb-6">Statistics</h1>
       <div className="flex justify-between gap-6">
         <div className="flex-1 h-32 border-black border rounded-md flex flex-col justify-center p-5 text-xl font-medium">
-          Total revenue <p>0$</p>
+          Total revenue
+          <div>0$</div>
         </div>
         <div className="flex-1 h-32 border-black border rounded-md flex flex-col justify-center p-5 text-xl font-medium">
-          Revenue for the week <p>0$</p>
+          Week revenue
+          <div>0$</div>
         </div>
         <div className="flex-1 h-32 border-black border rounded-md flex flex-col justify-center p-5 text-xl font-medium">
-          Revenue of the day <p>0$</p>
+          Day revenue
+          <div>0$</div>
         </div>
       </div>
     </ScrollArea>
