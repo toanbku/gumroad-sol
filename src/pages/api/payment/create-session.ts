@@ -1,4 +1,5 @@
 import { candypay } from "@/helpers";
+import { corsMiddleware } from "@/lib/cors";
 import { withPrivateRoute } from "@/lib/utils";
 import supabase from "@/services/supabase";
 import { NextApiHandler } from "next";
@@ -15,6 +16,7 @@ type Order = {
 
 const handler: NextApiHandler = async (req, res) => {
   try {
+    await corsMiddleware(req, res);
     const decodedToken = await withPrivateRoute(req, res);
     // @ts-ignore
     const { address } = decodedToken;
