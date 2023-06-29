@@ -18,53 +18,69 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 // You can use a Zod schema here if you want.
 export type Payment = {
   id: string;
-  status: "For Sale" | "Sold";
-  revenue: number;
+  image: string;
+  title: string;
+  description: string;
   prices: number;
-  email: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "email",
+    accessorKey: "image",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Image
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <img
+          src={row.getValue("image")}
+          alt=""
+          className="w-12 h-12 rounded-lg"
+        />
+      );
+    },
+  },
+  {
+    accessorKey: "title",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: "revenue",
-    header: () => <div className="text-right">Revenue</div>,
-    cell: ({ row }) => {
-      const revenue = parseFloat(row.getValue("revenue"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(revenue);
-      return <div className="text-right font-medium">{formatted}</div>;
+    accessorKey: "description",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Description
+        </Button>
+      );
     },
   },
   {
-    accessorKey: "prices",
-    header: () => <div className="text-right">Prices</div>,
+    accessorKey: "price",
+    header: () => <div className="text-right">Price</div>,
     cell: ({ row }) => {
-      const prices = parseFloat(row.getValue("prices"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(prices);
-      return <div className="text-right font-medium">{formatted}</div>;
+      return (
+        <div className="text-right font-medium">${row.getValue("price")}</div>
+      );
     },
   },
 ];

@@ -6,8 +6,8 @@ const handler: NextApiHandler = async (req, res) => {
   await corsMiddleware(req, res);
   try {
     const response = await candypay.session.create({
-      success_url: `${process.env.STATIC_URL}/success`,
-      cancel_url: `${process.env.STATIC_URL}/cancel`,
+      success_url: `${process.env.STATIC_URL}/paymentSuccess`,
+      cancel_url: `${process.env.STATIC_URL}/paymentFail`,
       // additional SPL tokens, SOL and USDC are the supported tokens by default
       tokens: ["dust", "samo"],
       items: [

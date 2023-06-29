@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SideBar from "../components/sideBar/sideBar";
@@ -10,11 +10,10 @@ export default function Market() {
     <main className="sm:flex h-screen w-screen">
       <SideBar />
       <MobileSheet />
-      <ScrollArea className="sm:w-5/6 float-right w-full h-full">
-        <h1 className="text-3xl m-10">Markets</h1>
+      <ScrollArea className="sm:w-5/6 float-right w-full h-full p-10">
+        <h1 className="text-3xl mb-6">Markets</h1>
         <MarketPlace />
       </ScrollArea>
     </main>
   );
 }
-

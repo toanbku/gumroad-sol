@@ -1,41 +1,37 @@
-import { Input } from "@/components/ui/input";
 import { DataTable } from "./data-table";
-import { Payment, columns } from "./columns";
+import { columns } from "./columns";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      status: "Sold",
-      revenue: 100,
-      prices: 35,
-      email: "minhle@example.com",
-    },
-    {
-      id: "da2421g2",
-      status: "For Sale",
-      revenue: 75,
-      prices: 25,
-      email: "minhlai@example.com",
-    },
-    {
-      id: "88fas56s",
-      status: "Sold",
-      revenue: 60,
-      prices: 60,
-      email: "leduy@example.com",
-    },
-    // ...
-  ];
-}
+const getPurchaseHistory = async () => {
+  const token = localStorage.getItem("token");
+  const res = await axios.get("https://gumstreet.vercel.app/api/assets", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data.data;
+};
 
-export default async function PurchaseHistory() {
-  const data = await getData();
+export default function PurchaseHistory() {
+  const {
+    data: dataPurchaseHistory,
+    error: errorPurchaseHistory,
+    isLoading: loadingPurchaseHistory,
+  } = useQuery<any>({
+    queryFn: () => getPurchaseHistory(),
+    queryKey: ["purchase-history"],
+    // Refetch the data every second
+    refetchInterval: 5000,
+  });
 
   return (
-    <div className="container mx-auto">
-      <DataTable columns={columns} data={data} />
-    </div>
+    <>
+      {loadingPurchaseHistory ? (
+        <div>Loading...</div>
+      ) : errorPurchaseHistory ? (
+        <div>Empty</div>
+      ) : (
+        <DataTable columns={columns} data={dataPurchaseHistory || []} />
+      )}
+    </>
   );
 }

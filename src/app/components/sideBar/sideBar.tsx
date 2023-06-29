@@ -25,7 +25,6 @@ export default function SideBar() {
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
 
   const [solanaAddress, setSolanaAddress] = useState<string>("");
-  const [token, setToken] = useState<string>("");
 
   const handleSignAddressMessage = async (signatureString: string) => {
     if (signMessage) {
@@ -65,7 +64,6 @@ export default function SideBar() {
   const handleLogout = async () => {
     await disconnect();
     localStorage.clear();
-    setToken("");
     setSolanaAddress("");
   };
 
@@ -77,15 +75,14 @@ export default function SideBar() {
     const tokenStorage = localStorage.getItem("token");
     const addressStorage = localStorage.getItem("solana_address");
     if (tokenStorage && addressStorage) {
-      setToken(tokenStorage);
       setSolanaAddress(addressStorage);
+    }
+    if (!tokenStorage && addressWallet) {
+      handleGetNonce();
     }
   }, []);
 
   useEffect(() => {
-    if (!token && addressWallet) {
-      handleGetNonce();
-    }
     if (addressWallet) {
       localStorage.setItem("solana_address", addressWallet);
     }
