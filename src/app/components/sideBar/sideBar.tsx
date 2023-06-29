@@ -107,7 +107,7 @@ export default function SideBar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-gray-800 h-14 flex justify-center items-center">
               <DropdownMenuItem
-                className="w-full hover:bg-gray-900 text-white rounded-sm font-semibold text-center flex justify-center"
+                className="w-full hover:bg-gray-900 text-white rounded-sm font-semibold text-center flex justify-center cursor-pointer"
                 onClick={handleLogout}
               >
                 Disconnect
