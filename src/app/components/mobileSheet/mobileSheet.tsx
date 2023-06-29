@@ -29,7 +29,7 @@ import Link from "next/link";
 import { Wallet } from "@/components/wallet";
 export default function MobileSheet() {
   return (
-    <div className="sm:hidden">
+    <div className="sm:hidden w-full float-left">
       <Sheet key={"left"}>
         <SheetTrigger asChild>
           <Button variant="outline">
@@ -37,7 +37,7 @@ export default function MobileSheet() {
           </Button>
         </SheetTrigger>
         <SheetContent side={"left"}>
-          <Command className="rounded-lg w-full">
+          <Command className="rounded-lg ">
             <h1 className=" h-32 text-[30px] grid content-center text-center">
               Gumroad
             </h1>

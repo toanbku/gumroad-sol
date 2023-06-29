@@ -23,13 +23,15 @@ import { useForm } from "react-hook-form";
 import { AiFillStar, AiOutlineDollar, AiOutlineStar } from "react-icons/ai";
 import { Input } from "@/components/ui/input";
 import SideBar from "../components/sideBar";
+import MobileSheet from "../components/mobileSheet";
 
 export default function Product() {
   const form = useForm();
   return (
-    <main className="h-screen w-screen flex">
+    <main className="h-screen w-screen sm:flex">
       <SideBar />
-      <div className="flex items-center justify-center w-5/6">
+      <MobileSheet />
+      <div className="flex items-center justify-center sm:w-5/6 w-full h-full">
         <Card className="lg:h-5/6 lg:w-5/6 w-full h-full flex flex-wrap max-sm:flex-col border-2 border-black">
           <div className="h-1/2 w-full max-sm:h-1/3 bg-zinc-600 rounded-t-md"></div>
           <div className="w-2/3 h-1/2 max-sm:w-full max-sm:h-1/3 sm:border-r border-black rounded-es-md float-left">
