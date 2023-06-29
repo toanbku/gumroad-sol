@@ -89,10 +89,10 @@ export default function SideBar() {
   }, [addressWallet]);
 
   return (
-    <Command className="border shadow-md w-[280px] h-screen float-left max-sm:hidden">
-      <h1 className="text-[30px] grid content-center text-center pt-6 pb-3">
+    <Command>
+      <div className="text-[30px] grid content-center text-center pt-6 pb-3">
         Gumstreet
-      </h1>
+      </div>
       <div className="w-auto flex flex-col items-center gap-2 mb-2">
         {solanaAddress ? (
           <DropdownMenu>
@@ -115,28 +115,31 @@ export default function SideBar() {
           <WalletMultiButton />
         )}
       </div>
-      <CommandList>
+      <CommandList className="mt-5">
         <CommandGroup>
-          <CommandItem className="">
-            <Link href="./markets" className="w-full">
-              Markets
-            </Link>
-          </CommandItem>
-          <CommandItem className="">
-            <Link href="./statistics" className="w-full">
-              Statistics{" "}
-            </Link>
-          </CommandItem>
-          <CommandItem className="">
-            <Link href="./product" className="w-full">
-              Products
-            </Link>
-          </CommandItem>
-          <CommandItem>
-            <Link href="./history" className="w-full">
-              History
-            </Link>
-          </CommandItem>
+          <Link href="./markets">
+            <CommandItem>
+              <div className="text-lg cursor-pointer w-full">Markets</div>
+            </CommandItem>
+          </Link>
+
+          <Link href="./statistics">
+            <CommandItem>
+              <div className="text-lg cursor-pointer w-full">Statistics</div>
+            </CommandItem>
+          </Link>
+
+          <Link href="./product">
+            <CommandItem>
+              <div className="text-lg cursor-pointer w-full">Products</div>
+            </CommandItem>
+          </Link>
+
+          <Link href="./history">
+            <CommandItem>
+              <div className="text-lg cursor-pointer w-full">History</div>
+            </CommandItem>
+          </Link>
         </CommandGroup>
       </CommandList>
     </Command>

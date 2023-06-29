@@ -24,7 +24,8 @@ export default function PurchaseHistory() {
   });
 
   return (
-    <>
+    <div className="flex flex-col gap-6">
+      <h1 className="text-2xl">Purchase history</h1>
       {loadingPurchaseHistory ? (
         <div>Loading...</div>
       ) : errorPurchaseHistory ? (
@@ -32,6 +33,6 @@ export default function PurchaseHistory() {
       ) : (
         <DataTable columns={columns} data={dataPurchaseHistory || []} />
       )}
-    </>
+    </div>
   );
 }

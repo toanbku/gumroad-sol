@@ -3,12 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,16 +15,14 @@ import {
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
-import SideBar from "./components/sideBar/sideBar";
 import { AiOutlineDollar } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import MobileSheet from "./components/mobileSheet";
-import { Description } from "@radix-ui/react-toast";
+import axios from "axios";
 
 const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
   }),
   description: z.string().min(10, {
     message: "Description must be at least 10 characters.",
@@ -41,134 +37,145 @@ const FormSchema = z.object({
     message: "Price is required.",
   }),
 });
+
 export default function Home() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const formatFormData = {
+      title: data.name,
+      description: data.description,
+      price: Number(data.price),
+      file: "/assets/example.png", //TODO: support upload file
+      image: "https://imgur.com/M0l5SDh.png", //TODO: support upload file
+    };
+    console.log("formatFormData: ", formatFormData);
+
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      "https://gumstreet.vercel.app/api/assets",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("response: ", response);
+    form.reset();
   }
 
   return (
-    <main className=" w-full h-screen grid grid-col-2 sm:flex">
-      <SideBar />
-      <MobileSheet />
-      <div className="w-full h-full">
-        <ScrollArea className="w-full h-full float-left bg-local flex">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem className="m-10">
-                    <FormLabel className="text-2xl pb-2">Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Name the product"
-                        className="border-2 border-black"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem className="m-10">
-                    <FormLabel className="text-2xl pb-2 ">
-                      Description
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        className="border-2 border-black w-ful h-[200px]"
-                        placeholder="Describe your product..."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="uploadfile"
-                render={({ field }) => (
-                  <FormItem className="m-10">
-                    <FormLabel className="text-2xl pb-2 ">
-                      Upload File
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        id="uploadfile"
-                        type="file"
-                        className="sm:w-[400px] border-black border"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="uploadthumnail"
-                render={({ field }) => (
-                  <FormItem className="m-10">
-                    <FormLabel className="text-2xl pb-2 ">
-                      Upload Thumnail
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        id="uploadthumnail"
-                        type="file"
-                        className="sm:w-[400px] border-black border"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem className="m-10">
-                    <FormLabel className="text-2xl pb-2 ">Price</FormLabel>
-                    <FormControl>
-                      <Label htmlFor="price" className="flex">
-                        <AiOutlineDollar className="h-auto w-[30px] mx-2" />
-                        <Input
-                          id="price"
-                          type="number"
-                          className="  sm:w-[400px] border-black border"
-                          placeholder="Set the price"
-                          min={0}
-                          {...field}
-                        />
-                      </Label>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex mb-5 max-lg:justify-center">
-                <Button
-                  type="submit"
-                  className="mx-10 w-[200px] md:items-center "
-                >
-                  Upload
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </ScrollArea>
-      </div>
-    </main>
+    <ScrollArea>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-6"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-2xl">Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Name the product"
+                    className="border border-black"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-2xl">Description</FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="border border-black h-[200px]"
+                    placeholder="Describe your product..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex md:flex-row flex-col gap-6">
+            <FormField
+              control={form.control}
+              name="uploadfile"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel className="text-2xl">Upload File</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="uploadfile"
+                      type="file"
+                      className="border-black border"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="uploadthumnail"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel className="text-2xl">Upload Thumnail</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="uploadthumnail"
+                      type="file"
+                      className="border-black border"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-2xl">Price</FormLabel>
+                <FormControl>
+                  <Label htmlFor="price" className="flex">
+                    <AiOutlineDollar className="h-auto w-[30px] mx-2" />
+                    <Input
+                      id="price"
+                      type="number"
+                      step="0.01"
+                      className="border-black border"
+                      placeholder="Set the price"
+                      min={0}
+                      {...field}
+                    />
+                  </Label>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="md:w-[200px] w-full">
+            Upload
+          </Button>
+        </form>
+      </Form>
+    </ScrollArea>
   );
 }

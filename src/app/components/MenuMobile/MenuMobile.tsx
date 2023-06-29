@@ -17,7 +17,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
-export default function MobileSheet() {
+export default function MenuMobile() {
   const { publicKey, disconnect, signMessage } = useWallet();
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
 
@@ -86,52 +86,63 @@ export default function MobileSheet() {
   }, [addressWallet]);
 
   return (
-    <div className="sm:hidden w-full float-left">
-      <Sheet key={"left"}>
-        <SheetTrigger asChild>
-          <Button variant="outline">
-            <AiOutlineMenu />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side={"left"}>
-          <Command className="rounded-lg ">
-            <h1 className="text-[30px] grid content-center text-center pt-6 pb-3">
-              Gumstreet
-            </h1>
-            <div className="w-auto flex flex-col items-center gap-2 mb-2">
-              {solanaAddress ? (
-                <div
-                  className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-sm"
-                  onClick={handleLogout}
-                >
-                  <Avatar className="h-6 w-6">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                  </Avatar>
-                  {shorterAddress(solanaAddress)}
-                </div>
-              ) : (
-                <WalletMultiButton />
-              )}
-            </div>
-            <CommandList>
-              <CommandGroup>
+    <Sheet key={"left"}>
+      <SheetTrigger asChild>
+        <Button variant="outline">
+          <AiOutlineMenu />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side={"left"}>
+        <Command className="rounded-lg">
+          <div className="text-[30px] grid content-center text-center pt-6 pb-3">
+            Gumstreet
+          </div>
+          <div className="w-auto flex flex-col items-center gap-2 mb-2">
+            {solanaAddress ? (
+              <div
+                className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-sm"
+                onClick={handleLogout}
+              >
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                </Avatar>
+                {shorterAddress(solanaAddress)}
+              </div>
+            ) : (
+              <WalletMultiButton />
+            )}
+          </div>
+          <CommandList className="mt-5">
+            <CommandGroup>
+              <Link href="./markets">
                 <CommandItem>
-                  <Link href="./markets">Markets</Link>
+                  <div className="text-lg cursor-pointer w-full">Markets</div>
                 </CommandItem>
+              </Link>
+
+              <Link href="./statistics">
                 <CommandItem>
-                  <Link href="./statistics">Statistics </Link>
+                  <div className="text-lg cursor-pointer w-full">
+                    Statistics
+                  </div>
                 </CommandItem>
+              </Link>
+
+              <Link href="./product">
                 <CommandItem>
-                  <Link href="./product">Products</Link>
+                  <div className="text-lg cursor-pointer w-full">Products</div>
                 </CommandItem>
+              </Link>
+
+              <Link href="./history">
                 <CommandItem>
-                  <Link href="./history">History</Link>
+                  <div className="text-lg cursor-pointer w-full">History</div>
                 </CommandItem>
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </SheetContent>
-      </Sheet>
-    </div>
+              </Link>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </SheetContent>
+    </Sheet>
   );
 }

@@ -4,6 +4,9 @@ import { Inter } from "next/font/google";
 import SolanaProvider from "@/utils/SolanaProvider";
 import QueryProvider from "@/utils/QueryProvider";
 
+import SideBar from "./components/SideBar";
+import MenuMobile from "./components/MenuMobile";
+
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,7 +20,21 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <SolanaProvider>{children}</SolanaProvider>
+          <SolanaProvider>
+            <div className="flex">
+              <div className="lg:block hidden border w-[280px]">
+                <SideBar />
+              </div>
+              <div className="flex-1 relative">
+                <div className="lg:hidden block absolute top-2 left-3">
+                  <MenuMobile />
+                </div>
+                <div className="px-10 pb-10 lg:pt-10 pt-16 h-screen overflow-y-auto">
+                  {children}
+                </div>
+              </div>
+            </div>
+          </SolanaProvider>
         </QueryProvider>
       </body>
     </html>
