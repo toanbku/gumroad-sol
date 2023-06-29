@@ -12,11 +12,25 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import bs58 from "bs58";
 import axios from "axios";
 
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function SideBar() {
   const { publicKey, wallet, disconnect, connected, signMessage } = useWallet();
@@ -64,7 +78,6 @@ export default function SideBar() {
       handleGetNonce();
     }
   }, [addressWallet]);
->>>>>>> 0c7f667582ebcec92bb89d3562cb4bd217f1d256
 
   return (
     <Command className="rounded-lg border shadow-md w-1/6 h-screen min-w-fit float-left max-sm:hidden">
@@ -72,7 +85,22 @@ export default function SideBar() {
         Gumstreet
       </h1>
       <div className="w-auto flex flex-col items-center gap-2 mb-2">
-        <WalletMultiButton />-
+        <WalletMultiButton />
+        <DropdownMenu>
+          <DropdownMenuTrigger className="bg-[#512da8] w-4/5 flex p-3 text-white font-semibold rounded-sm">
+            <Avatar className="mx-2 h-6 w-6">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              {/* <AvatarFallback>CN</AvatarFallback> */}
+            </Avatar>
+            Address...3
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-gray-800 h-14 flex justify-center items-center">
+            <DropdownMenuItem className="w-full hover:bg-gray-900 text-white rounded-sm flex text-center">
+              {" "}
+              Disconnect
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <CommandList>
         <CommandGroup>
