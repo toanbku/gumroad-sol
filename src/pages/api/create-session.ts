@@ -1,7 +1,9 @@
 import { candypay } from "@/helpers";
+import { corsMiddleware } from "@/lib/cors";
 import type { NextApiHandler } from "next";
 
 const handler: NextApiHandler = async (req, res) => {
+  await corsMiddleware(req, res);
   try {
     const response = await candypay.session.create({
       success_url: `${process.env.STATIC_URL}/success`,
