@@ -11,20 +11,57 @@ datasource db {
 }
 
 model Users {
-  address   String   @id
-  auth      Json
-  email     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Assets    Assets[]
+  address         String            @id
+  auth            Json
+  email           String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  Assets          Assets[]
+  PaymentSessions PaymentSessions[]
 }
 
 model Assets {
-  id          String @id
+  id          String        @id
   title       String
   description String
   price       Float
   file        String
+  image       String?
   owner       String
-  Users       Users  @relation(fields: [owner], references: [address])
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Users       Users         @relation(fields: [owner], references: [address])
+  Transaction Transaction[]
+}
+
+enum PaymentSessionStatus {
+  Pending
+  Successful
+  Failed
+}
+
+model PaymentSessions {
+  id              String               @id
+  sessionId       String
+  orderId         String               @unique
+  status          PaymentSessionStatus
+  owner           String
+  customerEmail   String?
+  paymentAmount   Float?
+  paymentCurrency String?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  Users           Users                @relation(fields: [owner], references: [address])
+  Transaction     Transaction[]
+}
+
+model Transaction {
+  id              String          @id
+  assetId         String
+  quantity        Int
+  orderId         String
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  PaymentSessions PaymentSessions @relation(fields: [orderId], references: [orderId])
+  Assets          Assets          @relation(fields: [assetId], references: [id])
 }

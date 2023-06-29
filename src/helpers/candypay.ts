@@ -8,6 +8,6 @@ export const candypay = new CandyPay({
   // network: "mainnet", // use 'mainnet' for prod and 'devnet' for dev environment
   network: "devnet", // use 'mainnet' for prod and 'devnet' for dev environment
   config: {
-    collect_shipping_address: true,
+    collect_shipping_address: false,
   },
 });

@@ -84,6 +84,8 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/bs58": "^4.0.1",
+    "@types/cors": "^2.8.13",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/uuid": "^9.0.2"
   }
