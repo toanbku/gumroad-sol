@@ -1,5 +1,6 @@
 "use client";
 
+import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 

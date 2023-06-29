@@ -21,6 +21,8 @@ export interface ProviderProps {
   children: React.ReactNode;
 }
 
+
+
 export default function SolanaProvider({ children }: ProviderProps) {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
   const network = WalletAdapterNetwork.Devnet;

@@ -13,8 +13,32 @@ import {
 import Link from "next/link";
 
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import axios from "axios";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { useEffect } from "react";
+
+const queryClient = new QueryClient();
+
+// const { isLoading, error, data } = useQuery({
+//   queryKey: ["repoData"],
+//   queryFn: () => fetchAddress("BXhKaetQ4fA8jfUrYoBhcfZTeKt58QMomcvfMzkKa3X4"),
+// });
 
 export default function SideBar() {
+  const callApi = () => {};
+
+    useEffect(() => {
+      const fetchAddress = async (address: string) => {
+        const res = await axios.get(
+          "https://gumstreet.vercel.app/api/nonce?address=" + address
+        );
+        return {
+          nonce: res.data.nonce,
+          address: res.data.address,
+        };
+      };
+    }, []);
+
   return (
     <Command className="rounded-lg border shadow-md w-1/6 h-screen min-w-fit float-left max-sm:hidden">
       <h1 className=" h-32 text-[30px] grid content-center text-center">
@@ -22,6 +46,7 @@ export default function SideBar() {
       </h1>
       <div className="w-auto flex flex-col p-2 items-center gap-2">
         <WalletMultiButton />
+        <div onClick={callApi}>Hello</div>
       </div>
       <CommandList>
         <CommandGroup>

@@ -26,7 +26,6 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import Link from "next/link";
-import { Wallet } from "@/components/wallet";
 export default function MobileSheet() {
   return (
     <div className="sm:hidden w-full float-left">
@@ -42,7 +41,7 @@ export default function MobileSheet() {
               Gumroad
             </h1>
             <div className="w-auto flex flex-col p-2 items-center gap-2">
-              <Wallet />
+              {/* <Wallet /> */}
             </div>
             <CommandList>
               <CommandGroup>
