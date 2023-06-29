@@ -8,9 +8,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import React from "react";
@@ -20,6 +22,7 @@ import { AiOutlineDollar } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import MobileSheet from "./components/mobileSheet";
+import { Description } from "@radix-ui/react-toast";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -29,14 +32,14 @@ const FormSchema = z.object({
   description: z.string().min(10, {
     message: "Username must be at least 10 characters.",
   }),
-  uploadfile: z.string().min(0, {
-    message: "Username must be at least 0 characters.",
+  uploadfile: z.string().min(1, {
+    message: "Username must be at least 1 characters.",
   }),
-  uploadthumnail: z.string().min(0, {
-    message: "Username must be at least 0 characters.",
+  uploadthumnail: z.string().min(1, {
+    message: "Username must be at least 1 characters.",
   }),
-  price: z.string().min(0, {
-    message: "Username must be at least 0 characters.",
+  price: z.string().min(1, {
+    message: "Username must be at least 1 characters.",
   }),
 });
 export default function Home() {
@@ -87,6 +90,7 @@ export default function Home() {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage  />
                   </FormItem>
                 )}
               />
@@ -105,7 +109,7 @@ export default function Home() {
                         className="sm:w-[400px] border-black border"
                         {...field}
                       />
-                    </FormControl>
+                    </FormControl >
                   </FormItem>
                 )}
               />
@@ -142,6 +146,7 @@ export default function Home() {
                           type="number"
                           className="  sm:w-[400px] border-black border"
                           placeholder="Set the price"
+                          min={0}
                           {...field}
                         />
                       </Label>
