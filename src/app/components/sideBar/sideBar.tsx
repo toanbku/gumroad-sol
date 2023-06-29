@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function SideBar() {
   const { publicKey, disconnect, signMessage } = useWallet();
@@ -88,6 +89,9 @@ export default function SideBar() {
     }
   }, [addressWallet]);
 
+  const pathName = usePathname();
+  console.log(pathName);
+
   return (
     <Command>
       <div className="text-[30px] grid content-center text-center pt-6 pb-3">
@@ -117,26 +121,30 @@ export default function SideBar() {
       </div>
       <CommandList className="mt-5">
         <CommandGroup>
-          <Link href="./markets">
-            <CommandItem>
-              <div className="text-lg cursor-pointer w-full">Markets</div>
+          <Link href="./" >
+            <CommandItem className={pathName == "/" ? "bg-slate-400" : "" }>
+              <div className="text-lg cursor-pointer w-full">Upload</div>
+            </CommandItem>
+          </Link >
+          <Link href="./markets" >
+            <CommandItem className={pathName == "/markets" ? "bg-slate-400" : "" }>
+              <div className="text-lg cursor-pointer w-full ">Markets</div>
             </CommandItem>
           </Link>
-
-          <Link href="./statistics">
-            <CommandItem>
+          <Link href="./statistics" >
+            <CommandItem className={pathName == "/statistics" ? "bg-slate-400" : "" }> 
               <div className="text-lg cursor-pointer w-full">Statistics</div>
             </CommandItem>
           </Link>
 
-          <Link href="./product">
-            <CommandItem>
+          <Link href="./product" >
+            <CommandItem className={pathName == "/product" ? "bg-slate-400" : "" }>
               <div className="text-lg cursor-pointer w-full">Products</div>
             </CommandItem>
           </Link>
 
-          <Link href="./history">
-            <CommandItem>
+          <Link href="./history" >
+            <CommandItem className={pathName == "/history" ? "bg-slate-400" : "" }>
               <div className="text-lg cursor-pointer w-full">History</div>
             </CommandItem>
           </Link>

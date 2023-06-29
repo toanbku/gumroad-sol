@@ -16,6 +16,7 @@ import axios from "axios";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { usePathname } from "next/navigation";
 
 export default function MenuMobile() {
   const { publicKey, disconnect, signMessage } = useWallet();
@@ -85,6 +86,8 @@ export default function MenuMobile() {
     }
   }, [addressWallet]);
 
+  const pathName = usePathname();
+
   return (
     <Sheet key={"left"}>
       <SheetTrigger asChild>
@@ -114,14 +117,23 @@ export default function MenuMobile() {
           </div>
           <CommandList className="mt-5">
             <CommandGroup>
+              <Link href="./">
+                <CommandItem className={pathName == "/" ? "bg-slate-400" : ""}>
+                  <div className="text-lg cursor-pointer w-full">Upload</div>
+                </CommandItem>
+              </Link>
               <Link href="./markets">
-                <CommandItem>
+                <CommandItem
+                  className={pathName == "/markets" ? "bg-slate-400" : ""}
+                >
                   <div className="text-lg cursor-pointer w-full">Markets</div>
                 </CommandItem>
               </Link>
 
               <Link href="./statistics">
-                <CommandItem>
+                <CommandItem
+                  className={pathName == "/statistics" ? "bg-slate-400" : ""}
+                >
                   <div className="text-lg cursor-pointer w-full">
                     Statistics
                   </div>
@@ -129,13 +141,17 @@ export default function MenuMobile() {
               </Link>
 
               <Link href="./product">
-                <CommandItem>
+                <CommandItem
+                  className={pathName == "/product" ? "bg-slate-400" : ""}
+                >
                   <div className="text-lg cursor-pointer w-full">Products</div>
                 </CommandItem>
               </Link>
 
               <Link href="./history">
-                <CommandItem>
+                <CommandItem
+                  className={pathName == "/history" ? "bg-slate-400" : ""}
+                >
                   <div className="text-lg cursor-pointer w-full">History</div>
                 </CommandItem>
               </Link>
