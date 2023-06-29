@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Command,
@@ -36,7 +36,9 @@ export default function SideBar() {
   const { publicKey, wallet, disconnect, connected, signMessage } = useWallet();
 
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
-  console.log("addressWallet");
+
+  const [solanaAddress, setSolanaAddress] = useState<string>("");
+  const [token, setToken] = useState<string>("");
 
   const handleSignAddressMessage = async (signatureString: string) => {
     if (signMessage) {
@@ -54,8 +56,9 @@ export default function SideBar() {
     const response = await axios.get(
       "https://gumstreet.vercel.app/api/nonce?address=" + addressWallet
     );
-    if (response && response.data) {
+    if (response && response.data && addressWallet) {
       handleSignAddressMessage(`Nonce: ${response.data.nonce.toString()}`);
+      setSolanaAddress(addressWallet);
     }
   };
 
@@ -73,9 +76,20 @@ export default function SideBar() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token && addressWallet) {
+    const tokenStorage = localStorage.getItem("token");
+    const addressStorage = localStorage.getItem("solana_address");
+    if (tokenStorage && addressStorage) {
+      setToken(tokenStorage);
+      setSolanaAddress(addressStorage);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) {
       handleGetNonce();
+    }
+    if (addressWallet) {
+      localStorage.setItem("solana_address", addressWallet);
     }
   }, [addressWallet]);
 
@@ -85,12 +99,12 @@ export default function SideBar() {
         Gumstreet
       </h1>
       <div className="w-auto flex flex-col items-center gap-2 mb-2">
-        <WalletMultiButton />
+        {/* <WalletMultiButton /> */}
+
         <DropdownMenu>
           <DropdownMenuTrigger className="bg-[#512da8] w-4/5 flex p-3 text-white font-semibold rounded-sm">
             <Avatar className="mx-2 h-6 w-6">
               <AvatarImage src="https://github.com/shadcn.png" />
-              {/* <AvatarFallback>CN</AvatarFallback> */}
             </Avatar>
             Address...3
           </DropdownMenuTrigger>
@@ -101,6 +115,8 @@ export default function SideBar() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+
+        {/* {solanaAddress ? <div>hello</div> : <WalletMultiButton />} */}
       </div>
       <CommandList>
         <CommandGroup>
