@@ -70,7 +70,7 @@ export default function Market() {
                     <CardDescription>{data.description}</CardDescription>
                     <div className="flex gap-2">
                       Price:
-                      <div>{data.price}</div>
+                      <div>${data.price}</div>
                     </div>
                   </CardHeader>
                   <CardContent className="w-full">
