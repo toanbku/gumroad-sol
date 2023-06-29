@@ -10,8 +10,9 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import { Wallet } from "@/components/wallet";
 import Link from "next/link";
+
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 export default function SideBar() {
   return (
@@ -20,21 +21,29 @@ export default function SideBar() {
         Gumroad
       </h1>
       <div className="w-auto flex flex-col p-2 items-center gap-2">
-        <Wallet />
+        <WalletMultiButton />
       </div>
       <CommandList>
         <CommandGroup>
           <CommandItem className="">
-            <Link href="./markets" className="w-full">Markets</Link>
+            <Link href="./markets" className="w-full">
+              Markets
+            </Link>
           </CommandItem>
           <CommandItem className="">
-            <Link href="./statistics" className="w-full">Statistics </Link>
+            <Link href="./statistics" className="w-full">
+              Statistics{" "}
+            </Link>
           </CommandItem>
           <CommandItem className="">
-            <Link href="./product" className="w-full">Products</Link>
+            <Link href="./product" className="w-full">
+              Products
+            </Link>
           </CommandItem>
           <CommandItem>
-            <Link href="./history" className="w-full">History</Link>
+            <Link href="./history" className="w-full">
+              History
+            </Link>
           </CommandItem>
         </CommandGroup>
       </CommandList>

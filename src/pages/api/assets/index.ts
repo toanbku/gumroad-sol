@@ -2,8 +2,11 @@ import { v4 as uuidv4 } from "uuid";
 import { withPrivateRoute } from "@/lib/utils";
 import supabase from "@/services/supabase";
 import { NextApiHandler } from "next";
+import { corsMiddleware } from "@/lib/cors";
 
 const handler: NextApiHandler = async (req, res) => {
+  await corsMiddleware(req, res);
+
   if (req.method === "GET") {
     const queryAll = await supabase
       .from("Assets")

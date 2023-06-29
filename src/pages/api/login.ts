@@ -3,10 +3,14 @@ import { NextApiHandler } from "next";
 import nacl from "tweetnacl";
 import bs58 from "bs58";
 import { generateAccessToken } from "@/lib/utils";
+import { corsMiddleware } from "@/lib/cors";
+
 
 const handler: NextApiHandler = async (req, res) => {
+  await corsMiddleware(req, res);
   const { signature, address } = req.body;
   const newNonce = Math.floor(Math.random() * 1000000);
+
 
   const found = await supabase
     .from("Users")

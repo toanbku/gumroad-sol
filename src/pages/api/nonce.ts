@@ -1,7 +1,9 @@
+import { corsMiddleware } from "@/lib/cors";
 import supabase from "@/services/supabase";
 import { NextApiHandler } from "next";
 
 const handler: NextApiHandler = async (req, res) => {
+  await corsMiddleware(req, res);
   const { address } = req.query;
   if (!address) {
     return res.status(405).json({ error: "address is not null" });
