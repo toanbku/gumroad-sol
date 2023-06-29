@@ -28,18 +28,17 @@ const FormSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-
   description: z.string().min(10, {
-    message: "Username must be at least 10 characters.",
+    message: "Description must be at least 10 characters.",
   }),
   uploadfile: z.string().min(1, {
-    message: "Username must be at least 1 characters.",
+    message: "Upload file is required.",
   }),
   uploadthumnail: z.string().min(1, {
-    message: "Username must be at least 1 characters.",
+    message: "Upload thumbnail is required.",
   }),
   price: z.string().min(1, {
-    message: "Username must be at least 1 characters.",
+    message: "Price is required.",
   }),
 });
 export default function Home() {
@@ -72,6 +71,7 @@ export default function Home() {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -90,7 +90,7 @@ export default function Home() {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage  />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -109,7 +109,8 @@ export default function Home() {
                         className="sm:w-[400px] border-black border"
                         {...field}
                       />
-                    </FormControl >
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -129,6 +130,7 @@ export default function Home() {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -151,6 +153,7 @@ export default function Home() {
                         />
                       </Label>
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -159,7 +162,7 @@ export default function Home() {
                   type="submit"
                   className="mx-10 w-[200px] md:items-center "
                 >
-                  Submit
+                  Upload
                 </Button>
               </div>
             </form>
