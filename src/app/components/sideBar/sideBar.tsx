@@ -28,25 +28,21 @@ export default function SideBar() {
 
   const [solanaAddress, setSolanaAddress] = useState<string>("");
 
-  const handleSignAddressMessage = async (signatureString: string) => {
-    if (signMessage) {
-      const response = await signMessage(
-        Uint8Array.from(
-          Array.from(signatureString).map((letter) => letter.charCodeAt(0))
-        )
-      );
-      const signMsg = bs58.encode(response);
-      handleLogin(signMsg);
-    }
-  };
-
   const handleGetNonce = async () => {
     const response = await axios.get(
       "https://gumstreet.vercel.app/api/nonce?address=" + addressWallet
     );
-    if (response && response.data && addressWallet) {
-      handleSignAddressMessage(`Nonce: ${response.data.nonce.toString()}`);
-      setSolanaAddress(addressWallet);
+    if (response && response.data) {
+      const signatureString = `Nonce: ${response.data.nonce.toString()}`;
+      if (signMessage) {
+        const res = await signMessage(
+          Uint8Array.from(
+            Array.from(signatureString).map((letter) => letter.charCodeAt(0))
+          )
+        );
+        const signMsg = bs58.encode(res);
+        handleLogin(signMsg);
+      }
     }
   };
 
@@ -74,25 +70,28 @@ export default function SideBar() {
   };
 
   useEffect(() => {
-    const tokenStorage = localStorage.getItem("token");
-    const addressStorage = localStorage.getItem("solana_address");
-    if (tokenStorage && addressStorage) {
+    const tokenStorage = localStorage.getItem("token") || "";
+    const addressStorage = localStorage.getItem("solana_address") || "";
+    if (tokenStorage?.length !== 0 && addressStorage.length !== 0) {
       setSolanaAddress(addressStorage);
-    }
-    if (!tokenStorage && addressWallet) {
-      handleGetNonce();
     }
   }, []);
 
   useEffect(() => {
-    const tokenStorage = localStorage.getItem("token");
     if (addressWallet) {
       localStorage.setItem("solana_address", addressWallet);
-      if (!tokenStorage) {
+      setSolanaAddress(addressWallet);
+    }
+  }, [addressWallet]);
+
+  useEffect(() => {
+    const tokenStorage = localStorage.getItem("token") || "";
+    if (solanaAddress) {
+      if (tokenStorage?.length === 0) {
         handleGetNonce();
       }
     }
-  }, [addressWallet]);
+  }, [solanaAddress]);
 
   return (
     <Command>
@@ -125,33 +124,25 @@ export default function SideBar() {
         <CommandGroup>
           <Link href="/">
             <CommandItem className={pathName == "/" ? "bg-slate-200" : ""}>
+              <div className="text-lg cursor-pointer w-full">Markets</div>
+            </CommandItem>
+          </Link>
+
+          <Link href="/upload">
+            <CommandItem
+              className={pathName === "/upload" ? "bg-slate-200" : ""}
+            >
               <div className="text-lg cursor-pointer w-full">Upload</div>
             </CommandItem>
           </Link>
 
-          <Link href="/markets">
-            <CommandItem
-              className={pathName === "/markets" ? "bg-slate-200" : ""}
-            >
-              <div className="text-lg cursor-pointer w-full ">Markets</div>
-            </CommandItem>
-          </Link>
-
-          <Link href="/statistics">
+          {/* <Link href="/statistics">
             <CommandItem
               className={pathName === "/statistics" ? "bg-slate-200" : ""}
             >
               <div className="text-lg cursor-pointer w-full">Statistics</div>
             </CommandItem>
-          </Link>
-
-          <Link href="/product">
-            <CommandItem
-              className={pathName === "/product" ? "bg-slate-200" : ""}
-            >
-              <div className="text-lg cursor-pointer w-full">Products</div>
-            </CommandItem>
-          </Link>
+          </Link> */}
 
           <Link href="/history">
             <CommandItem
