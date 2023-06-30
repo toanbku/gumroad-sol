@@ -16,6 +16,9 @@ import axios from "axios";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+
+import Logo from "../../../../public/gumstreet.svg";
 
 export default function MenuMobile() {
   const pathName = usePathname();
@@ -98,10 +101,10 @@ export default function MenuMobile() {
       </SheetTrigger>
       <SheetContent side={"left"}>
         <Command className="rounded-lg">
-          <div className="text-[30px] grid content-center text-center pt-6 pb-3">
-            Gumstreet
+          <div className="-mt-16">
+            <Image src={Logo} alt="" />
           </div>
-          <div className="w-auto flex flex-col items-center gap-2 mb-2">
+          <div className="w-auto flex flex-col items-center gap-2 mb-2 -mt-14">
             {solanaAddress ? (
               <div
                 className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-sm"

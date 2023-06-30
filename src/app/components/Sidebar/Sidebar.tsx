@@ -19,6 +19,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+
+import Logo from "../../../../public/gumstreet.svg";
 
 export default function Sidebar() {
   const pathName = usePathname();
@@ -94,10 +97,10 @@ export default function Sidebar() {
 
   return (
     <Command>
-      <div className="text-[30px] grid content-center text-center pt-6 pb-3">
-        Gumstreet
+      <div className="-mt-16">
+        <Image src={Logo} alt="" />
       </div>
-      <div className="w-auto flex flex-col items-center gap-2 mb-2">
+      <div className="w-auto flex flex-col items-center gap-2 mb-2 -mt-14">
         {solanaAddress ? (
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-sm">
