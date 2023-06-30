@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import SolanaProvider from "@/utils/SolanaProvider";
 import QueryProvider from "@/utils/QueryProvider";
 
-import SideBar from "./components/SideBar";
+import Sidebar from "./components/Sidebar";
 import MenuMobile from "./components/MenuMobile";
 
 import "./globals.css";
@@ -23,7 +23,7 @@ export default function RootLayout({
           <SolanaProvider>
             <div className="flex">
               <div className="lg:block hidden border w-[280px]">
-                <SideBar />
+                <Sidebar />
               </div>
               <div className="flex-1 relative">
                 <div className="lg:hidden block absolute top-2 left-3 z-10">

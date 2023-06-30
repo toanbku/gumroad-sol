@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { usePathname } from "next/navigation";
 
-export default function SideBar() {
+export default function Sidebar() {
   const pathName = usePathname();
   const { publicKey, disconnect, signMessage } = useWallet();
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
