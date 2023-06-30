@@ -29,7 +29,7 @@ export default function RootLayout({
                 <div className="lg:hidden block absolute top-2 left-3 z-10">
                   <MenuMobile />
                 </div>
-                <div className="px-10 pb-10 lg:pt-10 pt-16 h-screen overflow-y-auto">
+                <div className="max-w-screen-xl mx-auto px-10 pb-10 lg:pt-10 pt-16 h-screen overflow-y-auto">
                   {children}
                 </div>
               </div>

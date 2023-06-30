@@ -13,6 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 
 const getAssets = async () => {
   const token = localStorage.getItem("token");
@@ -42,21 +44,29 @@ export default function Home() {
 
   return (
     <ScrollArea>
-      <h1 className="text-4xl mb-6 font-bold">Markets</h1>
+      <h1 className="text-3xl md:text-4xl mb-3 md:mb-6 font-bold">Markets</h1>
+      <Separator className="my-3 md:my-6" />
       <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2">
         {dataAssets?.map((data: any, index: number) => {
           return (
-            <Card className="rounded-2xl" key={index}>
+            <Card className="rounded-md md:rounded-xl" key={index}>
               <CardHeader>
                 <CardTitle>{data.title}</CardTitle>
                 <CardDescription>{data.description}</CardDescription>
               </CardHeader>
-              <CardContent className="w-full">
-                <img src={data.image} className="rounded-2xl" alt="" />
+              <CardContent className="w-full relative">
+                <div className="relative aspect-square">
+                  <Image
+                    src={data.image}
+                    className="rounded-md md:rounded-xl"
+                    alt=""
+                    fill
+                  />
+                </div>
               </CardContent>
               <CardFooter className="flex justify-center">
                 <Link href={`/files/${data.id}`}>
-                  <Button className="text-base w-full bg-[#512da8] hover:bg-black">
+                  <Button className="text-base w-full" variant="secondary">
                     More info
                   </Button>
                 </Link>

@@ -3,6 +3,7 @@ import { columns } from "./columns";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { Separator } from "@/components/ui/separator";
 
 const getPurchaseHistory = async () => {
   const token = localStorage.getItem("token");
@@ -27,8 +28,11 @@ export default function PurchaseHistory() {
   });
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-4xl font-bold">Purchase history</h1>
+    <div>
+      <h1 className="text-3xl md:text-4xl mb-3 md:mb-6 font-bold">
+        Purchase history
+      </h1>
+      <Separator className="my-3 md:my-6" />
       {connected ? (
         <>
           {loadingPurchaseHistory ? (

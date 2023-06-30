@@ -21,6 +21,8 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "../../../../public/gumstreet.svg";
+import { cn } from "@/lib/utils";
+import { ROUTES } from "@/utils/constants";
 
 export default function Sidebar() {
   const pathName = usePathname();
@@ -104,11 +106,6 @@ export default function Sidebar() {
         {solanaAddress ? (
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-md">
-              <img
-                src="https://github.com/shadcn.png"
-                className="h-6 w-6 rounded-full"
-                alt=""
-              />
               {shorterAddress(solanaAddress)}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-gray-800 h-14 flex justify-center items-center">
@@ -126,35 +123,23 @@ export default function Sidebar() {
       </div>
       <CommandList className="mt-5">
         <CommandGroup>
-          <Link href="/">
-            <CommandItem className={pathName == "/" ? "bg-slate-200" : ""}>
-              <div className="text-lg cursor-pointer w-full">Markets</div>
-            </CommandItem>
-          </Link>
-
-          <Link href="/upload">
-            <CommandItem
-              className={pathName === "/upload" ? "bg-slate-200" : ""}
-            >
-              <div className="text-lg cursor-pointer w-full">Upload</div>
-            </CommandItem>
-          </Link>
-
-          <Link href="/statistics">
-            <CommandItem
-              className={pathName === "/statistics" ? "bg-slate-200" : ""}
-            >
-              <div className="text-lg cursor-pointer w-full">Statistics</div>
-            </CommandItem>
-          </Link>
-
-          <Link href="/history">
-            <CommandItem
-              className={pathName === "/history" ? "bg-slate-200" : ""}
-            >
-              <div className="text-lg cursor-pointer w-full">History</div>
-            </CommandItem>
-          </Link>
+          {ROUTES.map((route) => (
+            <Link key={route.pathName} href={route.pathName}>
+              <CommandItem
+                className={cn(
+                  pathName === route.pathName
+                    ? "bg-slate-200 font-semibold"
+                    : "",
+                  "flex gap-1 md:gap-2"
+                )}
+              >
+                {route.icon}
+                <div className="text-md cursor-pointer w-full">
+                  {route.label}
+                </div>
+              </CommandItem>
+            </Link>
+          ))}
         </CommandGroup>
       </CommandList>
     </Command>

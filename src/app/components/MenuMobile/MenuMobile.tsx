@@ -19,6 +19,8 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 import Logo from "../../../../public/gumstreet.svg";
+import { ROUTES } from "@/utils/constants";
+import { cn } from "@/lib/utils";
 
 export default function MenuMobile() {
   const pathName = usePathname();
@@ -120,37 +122,23 @@ export default function MenuMobile() {
           </div>
           <CommandList className="mt-5">
             <CommandGroup>
-              <Link href="/">
-                <CommandItem className={pathName == "/" ? "bg-slate-200" : ""}>
-                  <div className="text-lg cursor-pointer w-full">Markets</div>
-                </CommandItem>
-              </Link>
-
-              <Link href="/upload">
-                <CommandItem
-                  className={pathName === "/upload" ? "bg-slate-200" : ""}
-                >
-                  <div className="text-lg cursor-pointer w-full">Upload</div>
-                </CommandItem>
-              </Link>
-
-              <Link href="/statistics">
-                <CommandItem
-                  className={pathName === "/statistics" ? "bg-slate-200" : ""}
-                >
-                  <div className="text-lg cursor-pointer w-full">
-                    Statistics
-                  </div>
-                </CommandItem>
-              </Link>
-
-              <Link href="/history">
-                <CommandItem
-                  className={pathName === "/history" ? "bg-slate-200" : ""}
-                >
-                  <div className="text-lg cursor-pointer w-full">History</div>
-                </CommandItem>
-              </Link>
+              {ROUTES.map((route) => (
+                <Link key={route.pathName} href={route.pathName}>
+                  <CommandItem
+                    className={cn(
+                      pathName === route.pathName
+                        ? "bg-slate-200 font-semibold"
+                        : "",
+                      "flex gap-1"
+                    )}
+                  >
+                    {route.icon}
+                    <div className="text-md cursor-pointer w-full">
+                      {route.label}
+                    </div>
+                  </CommandItem>
+                </Link>
+              ))}
             </CommandGroup>
           </CommandList>
         </Command>

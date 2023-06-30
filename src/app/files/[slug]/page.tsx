@@ -85,10 +85,7 @@ export default function AssetDetail({ params }: IProps) {
         </CardContent>
         <CardFooter className="flex justify-center">
           {connected ? (
-            <Button
-              className="text-base w-full bg-[#512da8] hover:bg-black"
-              onClick={handleBuyAssets}
-            >
+            <Button className="text-base w-full" onClick={handleBuyAssets}>
               Buy it
             </Button>
           ) : (
