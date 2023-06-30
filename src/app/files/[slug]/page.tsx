@@ -2,16 +2,6 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-
-import {
   Card,
   CardContent,
   CardDescription,
@@ -20,11 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { AiOutlineDollar, AiOutlineStar } from "react-icons/ai";
-import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useQuery } from "@tanstack/react-query";
 
 interface IProps {
   params: {
@@ -32,9 +20,22 @@ interface IProps {
   };
 }
 
+const getAssetDetail = async (id: string) => {
+  const res = await axios.get(`https://gumstreet.vercel.app/api/assets/${id}`);
+  return res.data.data;
+};
+
 export default function AssetDetail({ params }: IProps) {
-  const form = useForm();
   const { connected } = useWallet();
+
+  const {
+    data: dataAssetDetail,
+    error: errorAssetDetail,
+    isLoading: loadingAssetDetail,
+  } = useQuery({
+    queryFn: () => getAssetDetail(params.slug),
+    queryKey: ["asset-detail"],
+  });
 
   // const handleBuyAssets = async () => {
   //   const token = localStorage.getItem("token");
@@ -57,55 +58,42 @@ export default function AssetDetail({ params }: IProps) {
   //   }
   // };
 
+  if (loadingAssetDetail) {
+    return <div className="text-lg font-medium">Loading...</div>;
+  }
+
+  if (errorAssetDetail) {
+    return <div className="text-lg font-medium">Empty</div>;
+  }
+
   return (
     <ScrollArea>
-      <Card className="w-full h-full border-2 border-black">
+      <Card className="rounded-2xl w-max">
         <CardHeader>
-          <CardTitle>Name Product</CardTitle>
-          <CardDescription>Description ...</CardDescription>
+          <CardTitle>{dataAssetDetail.title}</CardTitle>
+          <CardDescription>{dataAssetDetail.description}</CardDescription>
         </CardHeader>
         <CardContent>
-          <Form {...form}>
-            <FormField
-              control={form.control}
-              name="Buy"
-              render={(field) => (
-                <FormItem className="border border-black p-3 rounded-md ">
-                  <FormControl>
-                    <div className="flex flex-row items-center flex-wrap">
-                      <div className="flex flex-row items-center">
-                        <AiOutlineDollar className="" />
-                        1000
-                      </div>
-                      <div className="URL ml-3">
-                        nguyenxuananhuong.com/nameproduct
-                      </div>
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </Form>
+          <div className="flex flex-row items-center mb-2">
+            Price: ${dataAssetDetail.price}
+          </div>
+          <img
+            src={dataAssetDetail.image}
+            alt=""
+            className="rounded-xl w-[300px] h-[300px]"
+          />
         </CardContent>
-        {connected ? (
-          <CardFooter className="flex flex-col gap-4">
-            <div className="flex justify-center gap-2 w-full">
-              <AiOutlineDollar className="h-auto w-[30px]" />
-              <Input
-                type="number"
-                step="0.01"
-                className="border-black border"
-                min={0}
-                placeholder="You can pay more if you want"
-              />
-            </div>
+        <CardFooter className="flex justify-center">
+          {connected ? (
             <Button className="text-base w-full bg-[#512da8] hover:bg-black">
               Buy it
             </Button>
-          </CardFooter>
-        ) : (
-          <div className="mx-6 pb-4">Please login to buy this file</div>
-        )}
+          ) : (
+            <div className="text-lg font-medium">
+              Please login to buy this file
+            </div>
+          )}
+        </CardFooter>
       </Card>
     </ScrollArea>
   );

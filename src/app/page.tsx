@@ -32,39 +32,39 @@ export default function Home() {
     queryKey: ["assets"],
   });
 
+  if (loadingAssets) {
+    return <div className="text-lg font-medium">Loading...</div>;
+  }
+
+  if (errorAssets) {
+    return <div className="text-lg font-medium">Empty</div>;
+  }
+
   return (
     <ScrollArea>
-      <h1 className="text-3xl mb-6">Markets</h1>
-      <>
-        {loadingAssets ? (
-          <div className="text-lg font-medium">Loading...</div>
-        ) : errorAssets ? (
-          <div className="text-lg font-medium">Empty</div>
-        ) : (
-          <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2">
-            {dataAssets?.map((data: any, index: number) => {
-              return (
-                <Card className="rounded-2xl" key={index}>
-                  <CardHeader>
-                    <CardTitle>{data.title}</CardTitle>
-                    <CardDescription>{data.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="w-full">
-                    <img src={data.image} alt="" className="rounded-2xl" />
-                  </CardContent>
-                  <CardFooter className="flex justify-center">
-                    <Link href={`/files/${data.id}`}>
-                      <Button className="text-base w-full bg-[#512da8] hover:bg-black">
-                        More info
-                      </Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
-              );
-            })}
-          </div>
-        )}
-      </>
+      <h1 className="text-4xl mb-6 font-bold">Markets</h1>
+      <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2">
+        {dataAssets?.map((data: any, index: number) => {
+          return (
+            <Card className="rounded-2xl" key={index}>
+              <CardHeader>
+                <CardTitle>{data.title}</CardTitle>
+                <CardDescription>{data.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="w-full">
+                <img src={data.image} className="rounded-2xl" alt="" />
+              </CardContent>
+              <CardFooter className="flex justify-center">
+                <Link href={`/files/${data.id}`}>
+                  <Button className="text-base w-full bg-[#512da8] hover:bg-black">
+                    More info
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          );
+        })}
+      </div>
     </ScrollArea>
   );
 }

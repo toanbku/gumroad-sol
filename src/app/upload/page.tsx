@@ -82,12 +82,14 @@ export default function Home() {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    console.log("response: ", response);
 
     form.reset();
   }
 
   return (
     <ScrollArea>
+      <h1 className="text-4xl mb-6 font-bold">Upload</h1>
       {connected ? (
         <Form {...form}>
           <form
@@ -205,7 +207,9 @@ export default function Home() {
           </form>
         </Form>
       ) : (
-        <div>Please login to upload your file</div>
+        <div className="text-lg font-medium">
+          Please login to upload your file
+        </div>
       )}
     </ScrollArea>
   );

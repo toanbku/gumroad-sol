@@ -28,7 +28,7 @@ export default function PurchaseHistory() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl">Purchase history</h1>
+      <h1 className="text-4xl font-bold">Purchase history</h1>
       {connected ? (
         <>
           {loadingPurchaseHistory ? (
@@ -40,7 +40,9 @@ export default function PurchaseHistory() {
           )}
         </>
       ) : (
-        <div>Please login to check your purchase history</div>
+        <div className="text-lg font-medium">
+          Please login to check your purchase history
+        </div>
       )}
     </div>
   );

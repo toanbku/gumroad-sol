@@ -15,7 +15,6 @@ import bs58 from "bs58";
 import axios from "axios";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { usePathname } from "next/navigation";
 
 export default function MenuMobile() {
@@ -108,9 +107,11 @@ export default function MenuMobile() {
                 className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-sm"
                 onClick={handleLogout}
               >
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                </Avatar>
+                <img
+                  src="https://github.com/shadcn.png"
+                  className="h-6 w-6 rounded-full"
+                  alt=""
+                />
                 {shorterAddress(solanaAddress)}
               </div>
             ) : (
