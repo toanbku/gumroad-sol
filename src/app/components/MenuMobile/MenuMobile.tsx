@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -24,10 +24,25 @@ export default function MenuMobile() {
   const pathName = usePathname();
   const { publicKey, disconnect, signMessage } = useWallet();
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
-
   const [solanaAddress, setSolanaAddress] = useState<string>("");
 
-  const handleGetNonce = async () => {
+  const handleLogin = useCallback(
+    async (signMsg: string) => {
+      const response = await axios.post(
+        "https://gumstreet.vercel.app/api/login",
+        {
+          signature: signMsg,
+          address: addressWallet,
+        }
+      );
+      if (response) {
+        localStorage.setItem("token", response.data.token);
+      }
+    },
+    [addressWallet]
+  );
+
+  const handleGetNonce = useCallback(async () => {
     const response = await axios.get(
       "https://gumstreet.vercel.app/api/nonce?address=" + addressWallet
     );
@@ -43,20 +58,7 @@ export default function MenuMobile() {
         handleLogin(signMsg);
       }
     }
-  };
-
-  const handleLogin = async (signMsg: string) => {
-    const response = await axios.post(
-      "https://gumstreet.vercel.app/api/login",
-      {
-        signature: signMsg,
-        address: addressWallet,
-      }
-    );
-    if (response) {
-      localStorage.setItem("token", response.data.token);
-    }
-  };
+  }, [addressWallet, handleLogin, signMessage]);
 
   const handleLogout = async () => {
     await disconnect();
@@ -90,7 +92,7 @@ export default function MenuMobile() {
         handleGetNonce();
       }
     }
-  }, [solanaAddress]);
+  }, [handleGetNonce, solanaAddress]);
 
   return (
     <Sheet key={"left"}>
@@ -110,11 +112,6 @@ export default function MenuMobile() {
                 className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-md"
                 onClick={handleLogout}
               >
-                <img
-                  src="https://github.com/shadcn.png"
-                  className="h-6 w-6 rounded-full"
-                  alt=""
-                />
                 {shorterAddress(solanaAddress)}
               </div>
             ) : (
@@ -137,7 +134,7 @@ export default function MenuMobile() {
                 </CommandItem>
               </Link>
 
-              {/* <Link href="/statistics">
+              <Link href="/statistics">
                 <CommandItem
                   className={pathName === "/statistics" ? "bg-slate-200" : ""}
                 >
@@ -145,7 +142,7 @@ export default function MenuMobile() {
                     Statistics
                   </div>
                 </CommandItem>
-              </Link> */}
+              </Link>
 
               <Link href="/history">
                 <CommandItem
