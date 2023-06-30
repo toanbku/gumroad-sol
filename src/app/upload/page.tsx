@@ -36,21 +36,21 @@ const FormSchema = z.object({
   description: z.string().min(10, {
     message: "Description must be at least 10 characters.",
   }),
-  // asset: z.any().refine((files) => files?.length == 1, "Asset is required."),
-  // coverImage: z
-  //   .any()
-  //   .refine((files) => {
-  //     console.log(files);
-  //     return files?.length == 1;
-  //   }, "Image is required.")
-  //   .refine(
-  //     (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-  //     `Max file size is 5MB.`
-  //   )
-  //   .refine(
-  //     (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-  //     ".jpg, .jpeg, .png and .webp files are accepted."
-  //   ),
+  asset: z.any().refine((files) => files?.length == 1, "Asset is required."),
+  coverImage: z
+    .any()
+    .refine((files) => {
+      console.log(files);
+      return files?.length == 1;
+    }, "Image is required.")
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      `Max file size is 5MB.`
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    ),
   price: z.string().min(1, {
     message: "Price is required.",
   }),
@@ -68,10 +68,8 @@ export default function Home() {
       title: data.name,
       description: data.description,
       price: Number(data.price),
-      // coverImage: data.coverImage,
-      // asset: data.asset,
-      file: "/assets/example.png",
-      image: "https://imgur.com/M0l5SDh.png",
+      coverImage: data.coverImage,
+      asset: data.asset,
     };
 
     const token = localStorage.getItem("token");
@@ -88,6 +86,24 @@ export default function Home() {
 
     form.reset();
   }
+
+  const handleUploadAsset = async (e: any) => {
+    const file = e.target.files[0];
+    console.log("e.target.files", e.target.files);
+    console.log("file", file);
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      "/api/assets/upload-asset",
+      {
+        file,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    console.log("response", response);
+  };
 
   return (
     <ScrollArea>
@@ -134,7 +150,26 @@ export default function Home() {
               )}
             />
 
-            {/* <div className="flex md:flex-row flex-col gap-6">
+            <div className="flex md:flex-row flex-col gap-6">
+              {/* <FormField
+                control={form.control}
+                name="asset"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel className="text-2xl">Upload File</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="asset"
+                        type="file"
+                        className="border-black border"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
+
               <FormField
                 control={form.control}
                 name="asset"
@@ -147,6 +182,7 @@ export default function Home() {
                         type="file"
                         className="border-black border"
                         {...field}
+                        onChange={handleUploadAsset}
                       />
                     </FormControl>
                     <FormMessage />
@@ -172,7 +208,7 @@ export default function Home() {
                   </FormItem>
                 )}
               />
-            </div> */}
+            </div>
 
             <FormField
               control={form.control}

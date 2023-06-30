@@ -37,26 +37,26 @@ export default function AssetDetail({ params }: IProps) {
     queryKey: ["asset-detail"],
   });
 
-  // const handleBuyAssets = async () => {
-  //   const token = localStorage.getItem("token");
-  //   const response = await axios.post(
-  //     "https://gumstreet.vercel.app/api/payment/create-session",
-  //     {
-  //       data: [
-  //         {
-  //           id: params.slug,
-  //           quantity: 4,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     }
-  //   );
-  //   if (response) {
-  //     window.location.replace(response.data.payment_url);
-  //   }
-  // };
+  const handleBuyAssets = async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      "https://gumstreet.vercel.app/api/payment/create-session",
+      {
+        data: [
+          {
+            id: params.slug,
+            quantity: 1,
+          },
+        ],
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    if (response) {
+      window.location.replace(response.data.payment_url);
+    }
+  };
 
   if (loadingAssetDetail) {
     return <div className="text-lg font-medium">Loading...</div>;
@@ -85,7 +85,10 @@ export default function AssetDetail({ params }: IProps) {
         </CardContent>
         <CardFooter className="flex justify-center">
           {connected ? (
-            <Button className="text-base w-full bg-[#512da8] hover:bg-black">
+            <Button
+              className="text-base w-full bg-[#512da8] hover:bg-black"
+              onClick={handleBuyAssets}
+            >
               Buy it
             </Button>
           ) : (

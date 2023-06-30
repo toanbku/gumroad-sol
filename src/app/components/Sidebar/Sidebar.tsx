@@ -18,14 +18,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-
 import Logo from "../../../../public/gumstreet.svg";
 
 export default function Sidebar() {
   const pathName = usePathname();
   const { publicKey, disconnect, signMessage } = useWallet();
+  const router = useRouter();
   const addressWallet = useMemo(() => publicKey?.toBase58(), [publicKey]);
 
   const [solanaAddress, setSolanaAddress] = useState<string>("");
@@ -97,7 +97,7 @@ export default function Sidebar() {
 
   return (
     <Command>
-      <div className="-mt-16">
+      <div className="-mt-16 cursor-pointer" onClick={() => router.push("/")}>
         <Image src={Logo} alt="" />
       </div>
       <div className="w-auto flex flex-col items-center gap-2 mb-2 -mt-14">
@@ -140,13 +140,13 @@ export default function Sidebar() {
             </CommandItem>
           </Link>
 
-          {/* <Link href="/statistics">
+          <Link href="/statistics">
             <CommandItem
               className={pathName === "/statistics" ? "bg-slate-200" : ""}
             >
               <div className="text-lg cursor-pointer w-full">Statistics</div>
             </CommandItem>
-          </Link> */}
+          </Link>
 
           <Link href="/history">
             <CommandItem
