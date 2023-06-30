@@ -14,6 +14,10 @@ const handler: NextApiHandler = async (req, res) => {
       .eq("id", id)
       .single();
 
+    if (queryAsset.status !== 200) {
+      res.status(queryAsset.status).send({ error: "asset not found" });
+    }
+
     return res.status(200).send(queryAsset);
   }
 };
