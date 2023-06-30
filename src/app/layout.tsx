@@ -22,7 +22,7 @@ export default function RootLayout({
         <QueryProvider>
           <SolanaProvider>
             <div className="flex">
-              <div className="lg:block hidden border w-[280px]">
+              <div className="lg:block hidden border-r-[1px] w-[280px]">
                 <Sidebar />
               </div>
               <div className="flex-1 relative">
