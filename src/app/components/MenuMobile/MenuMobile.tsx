@@ -107,7 +107,7 @@ export default function MenuMobile() {
           <div className="w-auto flex flex-col items-center gap-2 mb-2 -mt-14">
             {solanaAddress ? (
               <div
-                className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-sm"
+                className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-md"
                 onClick={handleLogout}
               >
                 <img

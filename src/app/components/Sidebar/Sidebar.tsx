@@ -103,7 +103,7 @@ export default function Sidebar() {
       <div className="w-auto flex flex-col items-center gap-2 mb-2 -mt-14">
         {solanaAddress ? (
           <DropdownMenu>
-            <DropdownMenuTrigger className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-sm">
+            <DropdownMenuTrigger className="bg-[#512da8] w-max flex gap-2 p-3 text-white font-semibold rounded-md">
               <img
                 src="https://github.com/shadcn.png"
                 className="h-6 w-6 rounded-full"

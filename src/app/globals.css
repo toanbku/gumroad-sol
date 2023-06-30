@@ -86,6 +86,7 @@ a {
 
 [type="button"].wallet-adapter-button-trigger {
   background-color: #512da8;
+  border-radius: 6px;
 }
 
 @layer base {
