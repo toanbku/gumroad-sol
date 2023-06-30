@@ -21,6 +21,14 @@ import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useWallet } from "@solana/wallet-adapter-react";
 
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
 const FormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -28,12 +36,21 @@ const FormSchema = z.object({
   description: z.string().min(10, {
     message: "Description must be at least 10 characters.",
   }),
-  uploadfile: z.string().min(1, {
-    message: "Upload file is required.",
-  }),
-  uploadthumnail: z.string().min(1, {
-    message: "Upload thumbnail is required.",
-  }),
+  asset: z.any().refine((files) => files?.length == 1, "Asset is required."),
+  coverImage: z
+    .any()
+    .refine((files) => {
+      console.log(files);
+      return files?.length == 1;
+    }, "Image is required.")
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      `Max file size is 5MB.`
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    ),
   price: z.string().min(1, {
     message: "Price is required.",
   }),
@@ -51,8 +68,8 @@ export default function Home() {
       title: data.name,
       description: data.description,
       price: Number(data.price),
-      file: "/assets/example.png", //TODO: support upload file
-      image: "https://imgur.com/M0l5SDh.png", //TODO: support upload file
+      coverImage: data.coverImage,
+      asset: data.asset,
     };
 
     const token = localStorage.getItem("token");
@@ -116,13 +133,13 @@ export default function Home() {
             <div className="flex md:flex-row flex-col gap-6">
               <FormField
                 control={form.control}
-                name="uploadfile"
+                name="asset"
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel className="text-2xl">Upload File</FormLabel>
                     <FormControl>
                       <Input
-                        id="uploadfile"
+                        id="asset"
                         type="file"
                         className="border-black border"
                         {...field}
@@ -135,13 +152,13 @@ export default function Home() {
 
               <FormField
                 control={form.control}
-                name="uploadthumnail"
+                name="coverImage"
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel className="text-2xl">Upload Thumnail</FormLabel>
                     <FormControl>
                       <Input
-                        id="uploadthumnail"
+                        id="coverImage"
                         type="file"
                         className="border-black border"
                         {...field}

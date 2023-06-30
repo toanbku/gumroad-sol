@@ -16,16 +16,25 @@ const handler: NextApiHandler = async (req, res) => {
     const decodedToken = await withPrivateRoute(req, res);
     // @ts-ignore
     const { address } = decodedToken;
-    const { title, description, price, file, image } = req.body;
+    const { title, description, price, asset, coverImage } = req.body;
+    const date = new Date().getTime();
 
     try {
+      const { data: coverImageRes } = await supabase.storage
+        .from("images")
+        .upload(`${coverImage.name}-${date}`, coverImage as File);
+
+      const { data: assetRes } = await supabase.storage
+        .from("assets")
+        .upload(`${asset.name}-${date}`, asset as File);
+
       const response = await supabase.from("Assets").insert({
         id: uuidv4(),
         title,
         description,
         price,
-        file,
-        image,
+        cover: coverImageRes?.path,
+        file: assetRes?.path,
         owner: address,
         updatedAt: new Date(),
       });
