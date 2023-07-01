@@ -12,7 +12,9 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const data = await supabase
       .from("Assets")
-      .select("id, title, description, price, image")
+      .select(
+        "id, title, description, price, image, Transaction(orderId, createdAt, updatedAt, PaymentSessions(status, amountOut, token, paymentAmount, paymentCurrency, txnHash))"
+      )
       .eq("owner", address);
 
     return res.status(200).send(data);
