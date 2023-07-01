@@ -106,8 +106,8 @@ export default function Home() {
           return (
             <div
               key={item.value}
-              className={`border-r-[1px] border-gray-400 pr-2 last:pr-0 last:border-none cursor-pointer font-medium ${
-                item.value === selectedType ? "text-[#512da8]" : ""
+              className={`border-r-[1px] border-gray-400 pr-2 last:pr-0 last:border-none cursor-pointer ${
+                item.value === selectedType ? "font-semibold" : ""
               }`}
               onClick={() => setSelectedType(item.value)}
             >
@@ -117,7 +117,7 @@ export default function Home() {
         })}
       </div>
       <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2">
-        {filteredDataAssets.length === 0 ? (
+        {filteredDataAssets?.length === 0 ? (
           <div className="text-lg font-medium">Empty</div>
         ) : (
           <>

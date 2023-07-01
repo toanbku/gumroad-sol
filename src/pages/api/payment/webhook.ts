@@ -28,6 +28,7 @@ const handler: NextApiHandler = async (req, res) => {
   const headers = req.headers;
   const payload = req.body as Payload;
 
+  console.log("-----------");
   console.log(payload);
 
   try {
@@ -49,6 +50,8 @@ const handler: NextApiHandler = async (req, res) => {
           updatedAt: new Date(),
         })
         .eq("orderId", payload.order_id);
+
+      // TODO: send money out to owner asset
 
       return;
     }
