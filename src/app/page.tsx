@@ -21,11 +21,11 @@ import { useWallet } from "@solana/wallet-adapter-react";
 
 const listType = [
   {
-    label: "ALL",
+    label: "All",
     value: "all",
   },
   {
-    label: "MY ASSETS",
+    label: "My Assets",
     value: "my",
   },
 ];
@@ -129,10 +129,12 @@ export default function Home() {
                       <CardTitle>{data.title}</CardTitle>
                       <CardTitle>${data.price}</CardTitle>
                     </div>
-                    <CardDescription>{data.description}</CardDescription>
-                    <div className="text-lg font-semibold">
-                      {shorterAddress(data.owner)}
-                    </div>
+                    <CardDescription>
+                      <div className="flex flex-col">
+                        <div>{data.description}</div>
+                        <div>{shorterAddress(data.owner)}</div>
+                      </div>
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="w-full relative">
                     <div className="relative aspect-square">
