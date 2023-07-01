@@ -6,6 +6,7 @@ import QueryProvider from "@/utils/QueryProvider";
 
 import Sidebar from "./components/Sidebar";
 import MenuMobile from "./components/MenuMobile";
+import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 
@@ -36,6 +37,7 @@ export default function RootLayout({
             </div>
           </SolanaProvider>
         </QueryProvider>
+        <Toaster />
       </body>
     </html>
   );

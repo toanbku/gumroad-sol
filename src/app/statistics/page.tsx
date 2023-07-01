@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { currencyFormat } from "@/utils/function";
 import { DollarSign } from "lucide-react";
 
 export default function Statistics() {
@@ -17,7 +18,7 @@ export default function Statistics() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
+            <div className="text-2xl font-bold">{currencyFormat(45231.89)}</div>
           </CardContent>
         </Card>
 
@@ -27,7 +28,7 @@ export default function Statistics() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$5,231.89</div>
+            <div className="text-2xl font-bold">{currencyFormat(5231.89)}</div>
           </CardContent>
         </Card>
 
@@ -37,7 +38,7 @@ export default function Statistics() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$931.89</div>
+            <div className="text-2xl font-bold">{currencyFormat(631.89)}</div>
           </CardContent>
         </Card>
       </div>

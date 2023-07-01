@@ -13,19 +13,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { CurrencyInput, Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
-
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
+import { ChangeEvent, useState } from "react";
+import supabase from "@/services/supabase";
+import { LoaderIcon } from "lucide-react";
+import { updateFileName } from "@/utils/function";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -34,31 +31,22 @@ const formSchema = z.object({
   description: z.string().min(10, {
     message: "Description must be at least 10 characters.",
   }),
-  asset: z.any(),
-  coverImage: z
-    .any()
-    .refine((files) => {
-      console.log(files);
-      return files?.length == 1;
-    }, "Image is required.")
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, .jpeg, .png and .webp files are accepted."
-    ),
+  asset: z.string(),
+  coverImage: z.string(),
   price: z.string().min(0.1, {
     message: "Price is required.",
   }),
 });
 
-export default function ProfileForm() {
+export default function AssetForm() {
   const { connected } = useWallet();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const [isUploadingCover, setIsUploadingCover] = useState(false);
+  const [isUploadingAsset, setIsUploadingAsset] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -70,18 +58,88 @@ export default function ProfileForm() {
       asset: values.asset,
     };
     const token = localStorage.getItem("token");
-    const response = await axios.post(
-      "https://gumstreet.vercel.app/api/assets",
-      {
-        data: formatFormData,
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    try {
+      setIsSubmitting(true);
+      const response = await axios.post(
+        "https://gumstreet.vercel.app/api/assets",
+        {
+          data: formatFormData,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-    form.reset();
+      toast({
+        variant: "destructive",
+        title: "Success",
+        description: "You created a new asset",
+      });
+
+      form.reset();
+    } catch (e: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: e.message,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
+
+  const handleUploadCover = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) {
+      return;
+    }
+    const file = e.target.files[0];
+    try {
+      setIsUploadingCover(true);
+      const { data, error } = await supabase.storage
+        .from("images")
+        .upload(`${updateFileName(file)}`, file as File);
+
+      if (error) throw error;
+
+      if (data?.path) {
+        form.setValue("coverImage", data.path);
+      }
+    } catch (e: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: e.message,
+      });
+    } finally {
+      setIsUploadingCover(false);
+    }
+  };
+
+  const handleUploadAsset = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) {
+      return;
+    }
+
+    const file = e.target.files[0];
+    try {
+      setIsUploadingAsset(true);
+      const { data, error } = await supabase.storage
+        .from("assets")
+        .upload(`${updateFileName(file)}`, file as File);
+      if (error) throw error;
+      if (data?.path) {
+        form.setValue("asset", data.path);
+      }
+    } catch (e: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: e.message,
+      });
+    } finally {
+      setIsUploadingAsset(false);
+    }
+  };
 
   const innerChildren = () => {
     if (!connected) {
@@ -131,16 +189,21 @@ export default function ProfileForm() {
             <FormField
               control={form.control}
               name="asset"
-              render={({ field }) => (
+              render={({ field: { value, ...rest } }) => (
                 <FormItem>
                   <FormLabel>Upload Asset</FormLabel>
                   <FormControl>
-                    <Input
-                      id="asset"
-                      type="file"
-                      {...field}
-                      onChange={(e) => console.log("upload asset ", e)}
-                    />
+                    <div className="flex items-center gap-1">
+                      {isUploadingAsset && (
+                        <LoaderIcon className="animate-spin" />
+                      )}
+                      <Input
+                        id="asset"
+                        type="file"
+                        {...rest}
+                        onChange={handleUploadAsset}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -150,11 +213,21 @@ export default function ProfileForm() {
             <FormField
               control={form.control}
               name="coverImage"
-              render={({ field }) => (
+              render={({ field: { value, ...rest } }) => (
                 <FormItem>
                   <FormLabel>Upload Cover</FormLabel>
                   <FormControl>
-                    <Input id="coverImage" type="file" {...field} />
+                    <div className="flex items-center gap-1">
+                      {isUploadingCover && (
+                        <LoaderIcon className="animate-spin" />
+                      )}
+                      <Input
+                        id="coverImage"
+                        type="file"
+                        {...rest}
+                        onChange={handleUploadCover}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -169,22 +242,21 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
-                  <Input
-                    id="price"
-                    type="number"
-                    step="0.01"
-                    placeholder="Set the price"
-                    min={0}
-                    prefix="$"
-                    {...field}
-                  />
+                  <div className="flex items-center gap-1">
+                    <CurrencyInput {...field} placeholder="$" />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button type="submit">Create new asset</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            <div className="flex items-center gap-1">
+              {isSubmitting && <LoaderIcon className="animate-spin" />}
+              Create new asset
+            </div>
+          </Button>
         </form>
       </Form>
     );
