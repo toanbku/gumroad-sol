@@ -50,6 +50,8 @@ model PaymentSessions {
   paymentAmount   Float?
   paymentCurrency String?
   txnHash         String?
+  token           String?
+  amountOut       Float?
   createdAt       DateTime             @default(now())
   updatedAt       DateTime             @updatedAt
   Users           Users                @relation(fields: [owner], references: [address])
