@@ -12,37 +12,11 @@ import { DATE_TIME_FORMAT } from "@/utils/constants";
 
 // };
 
-export const columns: (props: {
-  handleDownload: (assetId: string) => void;
-}) => ColumnDef<any>[] = ({ handleDownload }) => [
-  {
-    accessorKey: "orderId",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Order Id
-          {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
+const shorterAddress = (string: string) => {
+  return string ? string.slice(0, 6) + "..." + string.substr(-4) : string;
+};
+
+export const columns: () => ColumnDef<any>[] = () => [
   {
     accessorKey: "asset",
     header: ({ column }) => {
@@ -63,14 +37,14 @@ export const columns: (props: {
             src={
               process.env.NEXT_PUBLIC_SUPABASE_URL! +
               "/storage/v1/object/public/images/" +
-              row.original?.Transaction?.[0]?.Assets?.image
+              row.original?.image
             }
             alt=""
             width={32}
             height={32}
             className="object-cover rounded-md md:rounded-xl"
           />
-          <div>{row.original?.Transaction?.[0]?.Assets?.title}</div>
+          <div>{row.original?.title}</div>
         </div>
       );
     },
@@ -89,59 +63,81 @@ export const columns: (props: {
       );
     },
     cell: ({ row }) => {
-      return (
-        <div className="text-center pr-14">
-          ${row.original?.Transaction?.[0]?.Assets?.price}
-        </div>
-      );
+      return <div>${row.original?.price}</div>;
     },
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "orderId",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Date Time
+          Order Id
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      return (
-        <div>
-          {row.original.createdAt
-            ? format(new Date(row.original.createdAt), DATE_TIME_FORMAT)
-            : ""}
-        </div>
-      );
+      return <div>{row.original?.orderId}</div>;
     },
   },
   {
-    accessorKey: "download",
+    accessorKey: "token",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Download
+          Token
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>{row.original?.PaymentSessions?.amountOut} SOL</div>;
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>${row.original?.PaymentSessions?.paymentAmount}</div>;
+    },
+  },
+  {
+    accessorKey: "trxHash",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Trx Hash
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
       return (
-        <Button
-          disabled={row.original.status !== "Successful"}
-          onClick={() => {
-            handleDownload(row.original.Transaction?.[0]?.assetId);
-          }}
+        <a
+          href={`https://explorer.solana.com/tx/${row.original?.PaymentSessions?.txnHash}?cluster=devnet`}
+          target="_blank"
         >
-          Download
-        </Button>
+          {shorterAddress(row.original?.PaymentSessions?.txnHash)}
+        </a>
       );
     },
   },

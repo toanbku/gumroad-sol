@@ -36,9 +36,9 @@ export default function PurchaseHistory() {
       {connected ? (
         <>
           {loadingPurchaseHistory ? (
-            <div>Loading...</div>
+            <div className="text-lg font-medium">Loading...</div>
           ) : errorPurchaseHistory ? (
-            <div>Empty</div>
+            <div className="text-lg font-medium">Empty</div>
           ) : (
             <DataTable columns={columns} data={dataPurchaseHistory || []} />
           )}
