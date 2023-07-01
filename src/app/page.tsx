@@ -55,6 +55,7 @@ export default function Home() {
   });
   const [selectedType, setSelectedType] = useState<string>("all");
   const [isBuying, setIsBuying] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<string>("");
 
   const filteredDataAssets =
     selectedType === "all"
@@ -121,9 +122,9 @@ export default function Home() {
           <div className="text-lg font-medium">Empty</div>
         ) : (
           <>
-            {filteredDataAssets?.map((data: any, index: number) => {
+            {filteredDataAssets?.map((data: any) => {
               return (
-                <Card className="rounded-md md:rounded-xl" key={index}>
+                <Card className="rounded-md md:rounded-xl" key={data.id}>
                   <CardHeader>
                     <div className="flex justify-between">
                       <CardTitle>{data.title}</CardTitle>
@@ -155,11 +156,16 @@ export default function Home() {
                     {connected ? (
                       <Button
                         className="text-base w-full"
-                        onClick={() => handleBuyAssets(data.id)}
-                        disabled={isBuying}
+                        onClick={() => {
+                          setSelectedItem(data.id);
+                          handleBuyAssets(data.id);
+                        }}
+                        disabled={isBuying && selectedItem === data.id}
                       >
                         <div className="flex items-center gap-1">
-                          {isBuying && <LoaderIcon className="animate-spin" />}
+                          {isBuying && selectedItem === data.id && (
+                            <LoaderIcon className="animate-spin" />
+                          )}
                           Buy it
                         </div>
                       </Button>
