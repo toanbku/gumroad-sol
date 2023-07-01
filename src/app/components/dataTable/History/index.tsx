@@ -1,10 +1,10 @@
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Separator } from "@/components/ui/separator";
-import { getHistory } from "@/services/api";
+import { downloadAsset, getHistory } from "@/services/api";
+import { toast } from "@/components/ui/use-toast";
 
 export default function HistoryTable() {
   const { connected } = useWallet();
@@ -20,6 +20,19 @@ export default function HistoryTable() {
     refetchInterval: connected ? 20000 : 0,
   });
 
+  const onDownload = async (assetId: string) => {
+    try {
+      const data = await downloadAsset(assetId);
+      window.location.replace(data.signedUrl);
+    } catch (e: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: e.message,
+      });
+    }
+  };
+
   return (
     <div>
       <h1 className="text-3xl md:text-4xl mb-3 md:mb-6 font-bold">
@@ -33,7 +46,12 @@ export default function HistoryTable() {
           ) : errorPurchaseHistory ? (
             <div>Empty</div>
           ) : (
-            <DataTable columns={columns} data={dataPurchaseHistory || []} />
+            <DataTable
+              columns={columns({
+                handleDownload: onDownload,
+              })}
+              data={dataPurchaseHistory || []}
+            />
           )}
         </>
       ) : (

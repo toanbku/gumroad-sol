@@ -12,7 +12,9 @@ import { DATE_TIME_FORMAT } from "@/utils/constants";
 
 // };
 
-export const columns: ColumnDef<any>[] = [
+export const columns: (props: {
+  handleDownload: (assetId: string) => void;
+}) => ColumnDef<any>[] = ({ handleDownload }) => [
   {
     accessorKey: "orderId",
     header: ({ column }) => {
@@ -42,7 +44,7 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "Transaction",
+    accessorKey: "asset",
     header: ({ column }) => {
       return (
         <Button
@@ -55,7 +57,6 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      console.log(row);
       return <div>{row.original?.Transaction?.[0]?.assetId}</div>;
     },
   },
@@ -73,14 +74,13 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      console.log(row);
       return (
         <div>{format(new Date(row.original.createdAt), DATE_TIME_FORMAT)}</div>
       );
     },
   },
   {
-    accessorKey: "Transaction",
+    accessorKey: "download",
     header: ({ column }) => {
       return (
         <Button
@@ -94,7 +94,12 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       return (
-        <Button disabled={row.original.status !== "Successful"}>
+        <Button
+          disabled={row.original.status !== "Successful"}
+          onClick={() => {
+            handleDownload(row.original.Transaction?.[0]?.assetId);
+          }}
+        >
           Download
         </Button>
       );
