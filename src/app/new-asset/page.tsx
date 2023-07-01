@@ -50,10 +50,11 @@ export default function AssetForm() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const formatPrice = parseFloat(values.price.slice(2).replace(/,/g, ""));
     const formatFormData = {
       title: values.name,
       description: values.description,
-      price: Number(values.price.slice(2)),
+      price: formatPrice,
       coverImage: values.coverImage,
       asset: values.asset,
     };
