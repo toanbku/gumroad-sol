@@ -23,6 +23,7 @@ import supabase from "@/services/supabase";
 import { LoaderIcon } from "lucide-react";
 import { updateFileName } from "@/utils/function";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -41,6 +42,7 @@ const formSchema = z.object({
 export default function AssetForm() {
   const { connected } = useWallet();
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -72,10 +74,11 @@ export default function AssetForm() {
       );
 
       toast({
-        variant: "destructive",
         title: "Success",
         description: "You created a new asset",
       });
+
+      router.push("/");
 
       form.reset();
     } catch (e: any) {

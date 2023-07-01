@@ -18,6 +18,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { currencyFormat } from "@/utils/function";
 
 const listType = [
   {
@@ -99,7 +100,7 @@ export default function Home() {
   }
 
   return (
-    <ScrollArea>
+    <div>
       <h1 className="text-3xl md:text-4xl mb-3 md:mb-6 font-bold">Markets</h1>
       <Separator className="my-3 md:my-6" />
       <div className="flex gap-2 justify-end mb-3 md:mb-6">
@@ -128,7 +129,7 @@ export default function Home() {
                   <CardHeader>
                     <div className="flex justify-between">
                       <CardTitle>{data.title}</CardTitle>
-                      <CardTitle>${data.price}</CardTitle>
+                      <CardTitle>{currencyFormat(data.price)}</CardTitle>
                     </div>
                     <CardDescription>
                       <div className="flex flex-col">
@@ -185,6 +186,6 @@ export default function Home() {
           </>
         )}
       </div>
-    </ScrollArea>
+    </div>
   );
 }
