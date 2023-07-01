@@ -53,7 +53,7 @@ export default function AssetForm() {
     const formatFormData = {
       title: values.name,
       description: values.description,
-      price: Number(values.price),
+      price: Number(values.price.slice(2)),
       coverImage: values.coverImage,
       asset: values.asset,
     };
