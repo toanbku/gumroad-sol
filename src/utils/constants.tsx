@@ -9,7 +9,7 @@ export const ROUTES = [
   },
   {
     pathName: "/new-asset",
-    label: "New Asset",
+    label: "Sell digital asset",
     icon: <LucidePlus />,
   },
   {
