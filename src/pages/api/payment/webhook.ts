@@ -1,3 +1,4 @@
+import { transferSolToken } from "@/lib/transfer";
 import supabase from "@/services/supabase";
 import { verifyWebhookSignature } from "@candypay/checkout-sdk";
 import { NextApiHandler } from "next";
@@ -52,6 +53,38 @@ const handler: NextApiHandler = async (req, res) => {
         .eq("orderId", payload.order_id);
 
       // TODO: send money out to owner asset
+
+      const { data: assetIdRes } = await supabase
+        .from("Transaction")
+        .select("assetId")
+        .eq("orderId", payload.order_id)
+        .single();
+      if (!assetIdRes?.assetId) {
+        return;
+      }
+
+      const { data: assetRes } = await supabase
+        .from("Assets")
+        .select("*")
+        .eq("id", assetIdRes.assetId)
+        .single();
+
+      if (!assetRes) {
+        return;
+      }
+
+      const txnHash = await transferSolToken({
+        toAddress: assetRes.owner,
+        amount: (assetRes.price / 18.4) * 0.96, // TODO: wait for update from CandyPay
+      });
+
+      await supabase
+        .from("PaymentSessions")
+        .update({
+          txnHash,
+          updatedAt: new Date(),
+        })
+        .eq("orderId", payload.order_id);
 
       return;
     }
