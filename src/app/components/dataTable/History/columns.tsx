@@ -57,7 +57,44 @@ export const columns: (props: {
       );
     },
     cell: ({ row }) => {
-      return <div>{row.original?.Transaction?.[0]?.assetId}</div>;
+      console.log("row: ", row);
+      return (
+        <div className="flex items-center gap-1">
+          <img
+            src={
+              process.env.NEXT_PUBLIC_SUPABASE_URL! +
+              "/storage/v1/object/public/images/" +
+              row.original?.Transaction?.[0]?.Assets.image
+            }
+            alt=""
+            width={32}
+            height={32}
+            className="object-cover rounded-md md:rounded-xl"
+          />
+          <div>{row.original?.Transaction?.[0]?.Assets.title}</div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "assetPrice",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Asset Price
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="text-center pr-14">
+          ${row.original?.Transaction?.[0]?.Assets.price}
+        </div>
+      );
     },
   },
   {
