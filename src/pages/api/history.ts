@@ -17,7 +17,8 @@ const handler: NextApiHandler = async (req, res) => {
       )
       .match({
         owner: address,
-      });
+      })
+      .order("updatedAt", { ascending: false });
 
     res.status(200).json(data);
   } catch (e) {
