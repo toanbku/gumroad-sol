@@ -112,7 +112,11 @@ export const columns: (props: {
     },
     cell: ({ row }) => {
       return (
-        <div>{format(new Date(row.original.createdAt), DATE_TIME_FORMAT)}</div>
+        <div>
+          {row.original.createdAt
+            ? format(new Date(row.original.createdAt), DATE_TIME_FORMAT)
+            : ""}
+        </div>
       );
     },
   },
