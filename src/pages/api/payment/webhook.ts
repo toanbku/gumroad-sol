@@ -110,6 +110,7 @@ const handler: NextApiHandler = async (req, res) => {
           status: "Failed",
           customerEmail: payload.customer_email,
           paymentAmount: payload.payment_amount,
+          paymentOut: payload.payment_amount * 0.96,
           paymentCurrency: payload.payment_currency,
           updatedAt: new Date(),
         })

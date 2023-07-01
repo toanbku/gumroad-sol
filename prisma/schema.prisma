@@ -48,6 +48,7 @@ model PaymentSessions {
   owner           String
   customerEmail   String?
   paymentAmount   Float?
+  paymentOut      Float?
   paymentCurrency String?
   txnHash         String?
   token           String?
