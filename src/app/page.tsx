@@ -134,7 +134,7 @@ export default function Home() {
                     <CardDescription>
                       <div className="flex flex-col">
                         <div>{data.description}</div>
-                        <div>{shorterAddress(data.owner)}</div>
+                        <div className="mt-2">{shorterAddress(data.owner)}</div>
                       </div>
                     </CardDescription>
                   </CardHeader>
