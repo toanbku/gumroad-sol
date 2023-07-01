@@ -73,12 +73,17 @@ const handler: NextApiHandler = async (req, res) => {
         return;
       }
 
+      // 18.4 is rate SOL/USD
+      // 96% because 1% for Candypay + 3% for Gumstreet
+      // this is temporary solution, because Candypay will update their webhook soon
+      const amount = Number(((assetRes.price / 18.4) * 0.96).toFixed(4));
+
       const txnHash = await transferSolToken({
         toAddress: assetRes.owner,
-        amount: (assetRes.price / 18.4) * 0.96, // TODO: wait for update from CandyPay
+        amount,
       });
 
-      await supabase
+      const { data } = await supabase
         .from("PaymentSessions")
         .update({
           txnHash,
@@ -86,7 +91,7 @@ const handler: NextApiHandler = async (req, res) => {
         })
         .eq("orderId", payload.order_id);
 
-      return;
+      return res.status(200).json({ data });
     }
 
     if (payload.event === "transaction.failed") {
@@ -104,6 +109,7 @@ const handler: NextApiHandler = async (req, res) => {
       return;
     }
   } catch (err) {
+    console.log("err", err);
     return res.status(400).json({
       message: "Invalid webhook signature",
     });
