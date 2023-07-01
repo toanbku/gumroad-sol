@@ -140,8 +140,12 @@ export default function Home() {
                   <CardContent className="w-full relative">
                     <div className="relative aspect-square">
                       <Image
-                        src={data.image}
-                        className="rounded-md md:rounded-xl"
+                        src={
+                          process.env.NEXT_PUBLIC_SUPABASE_URL! +
+                          "/storage/v1/object/public/images/" +
+                          data.image
+                        }
+                        className="object-cover rounded-md md:rounded-xl"
                         alt=""
                         fill
                       />
