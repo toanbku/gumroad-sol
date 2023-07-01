@@ -23,7 +23,7 @@ export default function RootLayout({
           <SolanaProvider>
             <div className="flex relative">
               <Sidebar />
-              <div className="flex-1 max-w-screen-xl mx-auto px-10 pb-10 lg:pt-10 pt-16 h-screen overflow-y-auto">
+              <div className="flex-1 max-w-screen-xl mx-auto px-10 pb-10 lg:pt-10 pt-16 min-h-screen overflow-y-auto">
                 {children}
               </div>
             </div>

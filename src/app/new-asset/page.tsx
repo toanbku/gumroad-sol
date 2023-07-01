@@ -23,7 +23,7 @@ import supabase from "@/services/supabase";
 import { LoaderIcon } from "lucide-react";
 import { updateFileName } from "@/utils/function";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(2, {
