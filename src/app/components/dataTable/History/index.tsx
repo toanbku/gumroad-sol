@@ -23,7 +23,7 @@ export default function HistoryTable() {
   const onDownload = async (assetId: string) => {
     try {
       const data = await downloadAsset(assetId);
-      window.location.replace(data.signedUrl);
+      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
     } catch (e: any) {
       toast({
         variant: "destructive",
