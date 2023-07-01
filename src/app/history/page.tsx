@@ -1,6 +1,6 @@
 "use client";
 
-import HistoryTable from "../components/DataTable/History";
+import HistoryTable from "../components/dataTable/History";
 
 export default function History() {
   return (
