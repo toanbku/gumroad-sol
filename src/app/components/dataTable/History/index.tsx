@@ -4,16 +4,9 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Separator } from "@/components/ui/separator";
+import { getHistory } from "@/services/api";
 
-const getPurchaseHistory = async () => {
-  const token = localStorage.getItem("token");
-  const res = await axios.get("http://localhost:3000/api/history", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data.data;
-};
-
-export default function PurchaseHistory() {
+export default function HistoryTable() {
   const { connected } = useWallet();
 
   const {
@@ -21,8 +14,8 @@ export default function PurchaseHistory() {
     error: errorPurchaseHistory,
     isLoading: loadingPurchaseHistory,
   } = useQuery<any>({
-    queryFn: () => getPurchaseHistory(),
-    queryKey: ["purchase-history"],
+    queryFn: () => getHistory(),
+    queryKey: ["history"],
     // Refetch the data every second
     refetchInterval: connected ? 20000 : 0,
   });

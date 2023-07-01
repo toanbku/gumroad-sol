@@ -1,13 +1,11 @@
 "use client";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
-
-import PurchaseHistory from "../components/dataTable/purchaseHistory";
+import HistoryTable from "../components/DataTable/History";
 
 export default function History() {
   return (
-    <ScrollArea>
-      <PurchaseHistory />
-    </ScrollArea>
+    <div>
+      <HistoryTable />
+    </div>
   );
 }
