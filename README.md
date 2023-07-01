@@ -14,10 +14,10 @@ GumSheet is a decentralized content marketplace built on Solana that allows crea
 
 ## Technologies Used
 
-- CandyPay Checkout SDK: CandyPay provides a low-code solution for accepting payments on Solana. We leverage their Checkout SDK to enable seamless crypto payments for the GumSheet marketplace.
-- Next.js: A React framework for server-side rendering and building web applications. Next.js is used to enhance the performance and scalability of GumSheet.
-- React: A popular JavaScript library for building user interfaces. We utilize React to create reusable UI components and manage the state of the application.
-- React Query: A data-fetching and caching library for React. React Query helps us manage the data flow and handle API requests efficiently.
+- [CandyPay](https://candypay.fun/) Checkout SDK: CandyPay provides a low-code solution for accepting payments on Solana. We leverage their Checkout SDK to enable seamless crypto payments for the GumSheet marketplace.
+- [Next.js](https://nextjs.org/): A React framework for server-side rendering and building web applications. Next.js is used to enhance the performance and scalability of GumSheet.
+- [React](http://react.dev/): A popular JavaScript library for building user interfaces. We utilize React to create reusable UI components and manage the state of the application.
+- [React Query](https://tanstack.com/query/v3/): A data-fetching and caching library for React. React Query helps us manage the data flow and handle API requests efficiently.
 
 ## Team Members
 
