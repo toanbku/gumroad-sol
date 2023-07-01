@@ -23,3 +23,16 @@ export const ROUTES = [
     icon: <LucideHistory />,
   },
 ];
+
+export const TOKEN_INFO = [
+  {
+    name: "USDC",
+    address: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    decimal: 6,
+  },
+  {
+    name: "Test",
+    address: "98qNgzzR47dqA8QZEhSJwNKkKBpod6m39zHpmjE3rdF7",
+    decimal: 9,
+  },
+];

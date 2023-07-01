@@ -17,3 +17,16 @@ export const getHistory = async () => {
   });
   return res.data.data;
 };
+
+export const downloadAsset = async (assetId: string) => {
+  const res = await axios.post(
+    `${BASE_URL}/assets/download`,
+    {
+      assetId,
+    },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return res.data.data;
+};
