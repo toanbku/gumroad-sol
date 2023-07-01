@@ -2,7 +2,7 @@ import axios from "axios";
 
 const token =
   typeof window !== "undefined" ? localStorage.getItem("token") : "";
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
 export const getMyAsset = async () => {
   const res = await axios.get(`${BASE_URL}/my-assets`, {
