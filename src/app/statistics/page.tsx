@@ -10,11 +10,13 @@ import { CreditCard, DollarSign } from "lucide-react";
 import { flatten } from "lodash";
 
 import StatisticTable from "../components/dataTable/Statistic";
+import { MyAssetResponse } from "@/types/my-asset";
+import { AxiosResponse } from "axios";
 
 export default function Statistics() {
   const { connected } = useWallet();
 
-  const { data, error, isLoading } = useQuery<any>({
+  const { data, error, isLoading } = useQuery<AxiosResponse<MyAssetResponse>>({
     queryFn: () => getMyAsset(),
     queryKey: ["my-asset"],
     // Refetch the data every second
@@ -22,7 +24,7 @@ export default function Statistics() {
   });
 
   const formatData =
-    data?.map((item: any) => {
+    data?.data.data.map((item) => {
       return {
         ...item,
         TransactionPrice: item.Transaction.filter(
@@ -35,29 +37,27 @@ export default function Statistics() {
       };
     }) || [];
 
-  const listDataPayment = formatData.map((item: any) => {
+  const listDataPayment = formatData.map((item) => {
     return item.TransactionPrice;
   });
 
   const totalRevenue: number = (flatten(listDataPayment) || []).reduce(
-    (prev: number, item: any) => prev + Number(item.amount),
+    (prev: number, item) => prev + Number(item.amount),
     0
   );
 
-  const formatStructData = formatData.map((item: any) => {
+  const formatStructData = formatData.map((item) => {
     return {
-      data: item.Transaction.filter((txn: any) => txn.PaymentSessions).map(
-        (trx: any) => {
-          return {
-            ...trx,
-            description: item.description,
-            id: item.id,
-            image: item.image,
-            price: item.price,
-            title: item.title,
-          };
-        }
-      ),
+      data: item.Transaction.filter((txn) => txn.PaymentSessions).map((trx) => {
+        return {
+          ...trx,
+          description: item.description,
+          id: item.id,
+          image: item.image,
+          price: item.price,
+          title: item.title,
+        };
+      }),
     };
   });
 
@@ -81,7 +81,7 @@ export default function Statistics() {
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{data.length}</div>
+              <div className="text-2xl font-bold">{data?.data.data.length}</div>
             </CardContent>
           </Card>
 
@@ -94,7 +94,7 @@ export default function Statistics() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {currencyFormat(totalRevenue)}
+                {currencyFormat(totalRevenue ?? 0)}
               </div>
             </CardContent>
           </Card>
@@ -112,7 +112,6 @@ export default function Statistics() {
         Statistics
       </h1>
       <Separator className="my-3 md:my-6" />
-      {/* <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-4"> */}
       {innerChildren()}
     </div>
   );

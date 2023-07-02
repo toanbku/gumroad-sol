@@ -116,7 +116,9 @@ export const columns: () => ColumnDef<any>[] = () => [
     },
     cell: ({ row }) => {
       return (
-        <div>{currencyFormat(row.original?.PaymentSessions?.paymentOut)}</div>
+        <div>
+          {currencyFormat(row.original?.PaymentSessions?.paymentOut ?? 0)}
+        </div>
       );
     },
   },
