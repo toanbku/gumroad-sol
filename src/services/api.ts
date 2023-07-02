@@ -5,10 +5,9 @@ const token =
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
 export const getMyAsset = async () => {
-  const res = await axios.get(`${BASE_URL}/my-assets`, {
+  return axios.get(`${BASE_URL}/my-assets`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  return res.data.data;
 };
 
 export const getHistory = async () => {

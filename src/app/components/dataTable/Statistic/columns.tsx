@@ -1,10 +1,11 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DATE_TIME_FORMAT } from "@/utils/constants";
+import Image from "next/image";
+import Link from "next/link";
+import { currencyFormat } from "@/utils/function";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -12,37 +13,11 @@ import { DATE_TIME_FORMAT } from "@/utils/constants";
 
 // };
 
-export const columns: (props: {
-  handleDownload: (assetId: string) => void;
-}) => ColumnDef<any>[] = ({ handleDownload }) => [
-  {
-    accessorKey: "orderId",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Order Id
-          {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
+const shorterAddress = (string: string) => {
+  return string ? string.slice(0, 6) + "..." + string.substr(-4) : string;
+};
+
+export const columns: () => ColumnDef<any>[] = () => [
   {
     accessorKey: "asset",
     header: ({ column }) => {
@@ -59,18 +34,18 @@ export const columns: (props: {
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-1">
-          <img
+          <Image
             src={
               process.env.NEXT_PUBLIC_SUPABASE_URL! +
               "/storage/v1/object/public/images/" +
-              row.original?.Transaction?.[0]?.Assets?.image
+              row.original?.image
             }
             alt=""
             width={32}
             height={32}
             className="object-cover rounded-md md:rounded-xl"
           />
-          <div>{row.original?.Transaction?.[0]?.Assets?.title}</div>
+          <div>{row.original?.title}</div>
         </div>
       );
     },
@@ -89,22 +64,52 @@ export const columns: (props: {
       );
     },
     cell: ({ row }) => {
-      return (
-        <div className="text-center pr-14">
-          ${row.original?.Transaction?.[0]?.Assets?.price}
-        </div>
-      );
+      return <div>{currencyFormat(row.original?.price)}</div>;
     },
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "orderId",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Date Time
+          Order Id
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>{row.original?.orderId}</div>;
+    },
+  },
+  {
+    accessorKey: "token",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Token
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>{row.original?.PaymentSessions?.amountOut} SOL</div>;
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Amount
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -112,36 +117,34 @@ export const columns: (props: {
     cell: ({ row }) => {
       return (
         <div>
-          {row.original.createdAt
-            ? format(new Date(row.original.createdAt), DATE_TIME_FORMAT)
-            : ""}
+          {currencyFormat(row.original?.PaymentSessions?.paymentOut ?? 0)}
         </div>
       );
     },
   },
   {
-    accessorKey: "download",
+    accessorKey: "trxHash",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Download
+          Trx Hash
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
       return (
-        <Button
-          disabled={row.original.status !== "Successful"}
-          onClick={() => {
-            handleDownload(row.original.Transaction?.[0]?.assetId);
-          }}
+        <Link
+          href={`https://explorer.solana.com/tx/${row.original?.PaymentSessions?.txnHash}?cluster=devnet`}
+          target="_blank"
         >
-          Download
-        </Button>
+          <p className="underline">
+            {shorterAddress(row.original?.PaymentSessions?.txnHash)}
+          </p>
+        </Link>
       );
     },
   },
