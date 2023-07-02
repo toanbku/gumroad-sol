@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { useQuery } from "@tanstack/react-query";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 interface IProps {
   params: {
