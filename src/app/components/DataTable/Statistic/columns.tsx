@@ -58,7 +58,7 @@ export const columns: () => ColumnDef<any>[] = () => [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Asset Price
+          Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -109,7 +109,7 @@ export const columns: () => ColumnDef<any>[] = () => [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Amount
+          Revenue
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

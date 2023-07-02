@@ -1,12 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { LoaderIcon } from "lucide-react";
+import { LoaderIcon, LucideWallet } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -134,7 +132,10 @@ export default function Home() {
                     <CardDescription>
                       <div className="flex flex-col">
                         <div>{data.description}</div>
-                        <div className="mt-2">{shorterAddress(data.owner)}</div>
+                        <div className="flex gap-1 items-center mt-2">
+                          <LucideWallet height={16} width={16} />
+                          {shorterAddress(data.owner)}
+                        </div>
                       </div>
                     </CardDescription>
                   </CardHeader>
