@@ -53,7 +53,7 @@ export const transferCustomToken = async ({
         fromTokenAccount.address, // from
         toTokenAccount.address, // to
         owner.publicKey, // pk
-        amount * Math.pow(10, selectedToken.decimal) // amount
+        Math.floor(amount * Math.pow(10, selectedToken.decimal)) // amount
       )
     );
 
@@ -81,7 +81,7 @@ export const transferSolToken = async ({
     SystemProgram.transfer({
       toPubkey,
       fromPubkey: owner.publicKey,
-      lamports: amount * LAMPORTS_PER_SOL,
+      lamports: Math.floor(amount * LAMPORTS_PER_SOL),
     })
   );
 
