@@ -15,7 +15,10 @@ const handler: NextApiHandler = async (req, res) => {
       .select(
         "id, title, description, price, image, Transaction(orderId, createdAt, updatedAt, PaymentSessions(status, amountOut, token, paymentAmount, paymentCurrency, txnHash))"
       )
-      .eq("owner", address);
+      .match({
+        owner: address,
+        "Transaction.PaymentSessions.status": "Successful",
+      });
 
     return res.status(200).send(data);
   } catch (e) {

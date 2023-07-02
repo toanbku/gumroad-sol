@@ -1,10 +1,11 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DATE_TIME_FORMAT } from "@/utils/constants";
+import Image from "next/image";
+import Link from "next/link";
+import { currencyFormat } from "@/utils/function";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -33,7 +34,7 @@ export const columns: () => ColumnDef<any>[] = () => [
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-1">
-          <img
+          <Image
             src={
               process.env.NEXT_PUBLIC_SUPABASE_URL! +
               "/storage/v1/object/public/images/" +
@@ -63,7 +64,7 @@ export const columns: () => ColumnDef<any>[] = () => [
       );
     },
     cell: ({ row }) => {
-      return <div>${row.original?.price}</div>;
+      return <div>{currencyFormat(row.original?.price)}</div>;
     },
   },
   {
@@ -114,7 +115,9 @@ export const columns: () => ColumnDef<any>[] = () => [
       );
     },
     cell: ({ row }) => {
-      return <div>${row.original?.PaymentSessions?.paymentAmount}</div>;
+      return (
+        <div>{currencyFormat(row.original?.PaymentSessions?.paymentOut)}</div>
+      );
     },
   },
   {
@@ -132,12 +135,14 @@ export const columns: () => ColumnDef<any>[] = () => [
     },
     cell: ({ row }) => {
       return (
-        <a
+        <Link
           href={`https://explorer.solana.com/tx/${row.original?.PaymentSessions?.txnHash}?cluster=devnet`}
           target="_blank"
         >
-          {shorterAddress(row.original?.PaymentSessions?.txnHash)}
-        </a>
+          <p className="underline">
+            {shorterAddress(row.original?.PaymentSessions?.txnHash)}
+          </p>
+        </Link>
       );
     },
   },
