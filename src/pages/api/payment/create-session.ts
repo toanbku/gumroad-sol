@@ -31,10 +31,10 @@ const handler: NextApiHandler = async (req, res) => {
     const items = found.data.map((item) => ({
       name: item.title,
       price: item.price,
-      image:
-        process.env.NEXT_PUBLIC_SUPABASE_URL! +
-        "/storage/v1/object/public/images/" +
-        +item.image,
+      image: `${process.env
+        .NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/images/${
+        item.image
+      }`,
       quantity: data.find((d) => d.id === item.id)?.quantity || 1,
     }));
 
