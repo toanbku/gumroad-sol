@@ -54,8 +54,6 @@ const handler: NextApiHandler = async (req, res) => {
         })
         .eq("orderId", payload.order_id);
 
-      // TODO: send money out to owner asset
-
       const { data: assetIdRes } = await supabase
         .from("Transaction")
         .select("assetId")
@@ -77,6 +75,7 @@ const handler: NextApiHandler = async (req, res) => {
 
       let txnHash;
       const amountOut = Number((payload.token_amount * 0.96).toFixed(4));
+
       if (payload.token.toUpperCase() === "SOL") {
         txnHash = await transferSolToken({
           toAddress: assetRes.owner,
@@ -97,6 +96,7 @@ const handler: NextApiHandler = async (req, res) => {
           token: payload.token.toUpperCase(),
           amountOut,
           updatedAt: new Date(),
+          paymentOut: payload.payment_amount * 0.96,
         })
         .eq("orderId", payload.order_id);
 
