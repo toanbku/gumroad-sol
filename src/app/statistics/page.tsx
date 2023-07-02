@@ -9,7 +9,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { CreditCard, DollarSign } from "lucide-react";
 import { flatten } from "lodash";
 
-import StatisticTable from "../components/dataTable/Statistic";
+import StatisticTable from "../components/DataTable/Statistic";
 import { MyAssetResponse } from "@/types/my-asset";
 import { AxiosResponse } from "axios";
 
