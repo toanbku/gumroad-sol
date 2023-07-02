@@ -40,7 +40,7 @@ const handler: NextApiHandler = async (req, res) => {
 
     const response = await candypay.session.create({
       success_url: `${process.env.STATIC_URL}/payment/success`,
-      cancel_url: `${process.env.STATIC_URL}/payment/cancel`,
+      cancel_url: `${process.env.STATIC_URL}`,
       // additional SPL tokens, SOL and USDC are the supported tokens by default
       tokens: ["dust", "samo"],
       items,
