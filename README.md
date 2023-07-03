@@ -27,6 +27,8 @@ GumSheet is a decentralized content marketplace built on Solana that allows crea
 
 ## Demo
 
+Video demo: https://www.youtube.com/watch?v=Ail_PgTrF2U
+
 You can access the working demo of GumSheet by visiting the following link: [GumSheet Demo](https://gumstreet.vercel.app)
 
 Alternatively, you can follow the testing guide provided below to try out the features of GumSheet locally.
