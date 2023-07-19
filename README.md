@@ -59,6 +59,7 @@ To run GumSheet locally on your machine, follow these steps:
 4. Open your web browser and visit `http://localhost:3000` to access GumSheet.
 
 Please note that you may need to have a local Solana network or connect to a testnet to perform crypto payments and test the full functionality of GumSheet.
+gk3
 
 ## Contribution
 
