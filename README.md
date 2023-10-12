@@ -2,7 +2,7 @@
 
 # GumSheet - a Gumroad.com alternative on Solana
 
-GumSheet is a decentralized content marketplace built on Solana that allows creators to sell various types of digital products such as images, videos, PDFs, and links using publicly shareable links. Users can seamlessly purchase and access these digital products using cryptocurrencies. This project is developed using the CandyPay Checkout SDK along with technologies like CandyPage, Next.js, React, and React Query.
+GumSheet is a decentralized content marketplace built on Solana that allows creators to sell various types of digital products such as images, videos, PDFs, and links using publicly shareable links. Users can seamlessly purchase and access these digital products using cryptocurrencies.
 
 ## Features
 
